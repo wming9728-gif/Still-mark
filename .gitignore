@@ -1,0 +1,7 @@
+﻿bin/
+obj/
+*.user
+.vs/
+tools/vendor-cache/
+dist/
+src/InkPage/data/

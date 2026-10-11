@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Doc_Untitled" xml:space="preserve">
+    <value>Untitled.md</value>
+  </data>
+  <data name="Doc_FileNotFound" xml:space="preserve">
+    <value>File not found: {0}</value>
+  </data>
+  <data name="Doc_NotSavedYet" xml:space="preserve">
+    <value>This document hasn't been saved yet. Use "Save As".</value>
+  </data>
+  <data name="Doc_CantOverwrite" xml:space="preserve">
+    <value>The original file can't be overwritten safely: {0}. Use "Save As" to save a new file.</value>
+  </data>
+  <data name="Doc_Unencodable" xml:space="preserve">
+    <value>The document contains characters that {0} can't represent, so it wasn't saved. You can "Save As" with UTF-8 instead.</value>
+  </data>
+  <data name="Draft_Blank" xml:space="preserve">
+    <value>(blank document)</value>
+  </data>
+  <data name="Write_TooLarge" xml:space="preserve">
+    <value>The file is too large ({0} MB); the limit is {1} MB.</value>
+  </data>
+  <data name="Write_InvalidPath" xml:space="preserve">
+    <value>Invalid save path.</value>
+  </data>
+  <data name="Write_DirNotFound" xml:space="preserve">
+    <value>The target folder doesn't exist: {0}</value>
+  </data>
+  <data name="Write_ReadOnly" xml:space="preserve">
+    <value>The file is marked read-only and can't be overwritten. Use "Save As" to save it somewhere else.</value>
+  </data>
+  <data name="Write_TempVerifyFailed" xml:space="preserve">
+    <value>Temporary file check failed: the data written doesn't match what was expected.</value>
+  </data>
+  <data name="Write_VerifyFailed" xml:space="preserve">
+    <value>Check after saving failed: the content on disk doesn't match what was expected.</value>
+  </data>
+  <data name="Codec_Utf32" xml:space="preserve">
+    <value>UTF-32 files can't be edited yet</value>
+  </data>
+  <data name="Codec_BadUtf8Bom" xml:space="preserve">
+    <value>The file has a UTF-8 BOM, but its content isn't valid UTF-8</value>
+  </data>
+  <data name="Codec_BadUtf16" xml:space="preserve">
+    <value>The UTF-16 content is incomplete or corrupted</value>
+  </data>
+  <data name="Codec_Binary" xml:space="preserve">
+    <value>This looks like a binary file, not text</value>
+  </data>
+  <data name="Codec_UnknownEncoding" xml:space="preserve">
+    <value>The encoding couldn't be recognised (it's neither UTF-8 nor GB18030)</value>
+  </data>
+  <data name="Codec_NoRoundTrip" xml:space="preserve">
+    <value>Re-encoding the text doesn't reproduce the original bytes</value>
+  </data>
+  <data name="Eol_Mixed" xml:space="preserve">
+    <value>Mixed</value>
+  </data>
+</root>

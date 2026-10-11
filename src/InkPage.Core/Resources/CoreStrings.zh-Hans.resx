@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Doc_Untitled" xml:space="preserve">
+    <value>未命名.md</value>
+  </data>
+  <data name="Doc_FileNotFound" xml:space="preserve">
+    <value>文件不存在：{0}</value>
+  </data>
+  <data name="Doc_NotSavedYet" xml:space="preserve">
+    <value>文档尚未保存过，请使用“另存为”。</value>
+  </data>
+  <data name="Doc_CantOverwrite" xml:space="preserve">
+    <value>无法安全地覆盖原文件：{0}。请使用“另存为”保存为新文件。</value>
+  </data>
+  <data name="Doc_Unencodable" xml:space="preserve">
+    <value>文档中有字符无法用 {0} 编码表示，未保存。可改用 UTF-8 另存为。</value>
+  </data>
+  <data name="Draft_Blank" xml:space="preserve">
+    <value>(空白文档)</value>
+  </data>
+  <data name="Write_TooLarge" xml:space="preserve">
+    <value>文件过大（{0} MB），超过 {1} MB 上限。</value>
+  </data>
+  <data name="Write_InvalidPath" xml:space="preserve">
+    <value>无效的保存路径。</value>
+  </data>
+  <data name="Write_DirNotFound" xml:space="preserve">
+    <value>目标文件夹不存在：{0}</value>
+  </data>
+  <data name="Write_ReadOnly" xml:space="preserve">
+    <value>文件被设置为只读，无法覆盖。可以使用“另存为”保存到其他位置。</value>
+  </data>
+  <data name="Write_TempVerifyFailed" xml:space="preserve">
+    <value>临时文件校验失败：写入的数据与预期不一致。</value>
+  </data>
+  <data name="Write_VerifyFailed" xml:space="preserve">
+    <value>保存后校验失败：磁盘上的内容与预期不一致。</value>
+  </data>
+  <data name="Codec_Utf32" xml:space="preserve">
+    <value>UTF-32 编码暂不支持编辑</value>
+  </data>
+  <data name="Codec_BadUtf8Bom" xml:space="preserve">
+    <value>文件带有 UTF-8 BOM，但内容不是合法的 UTF-8</value>
+  </data>
+  <data name="Codec_BadUtf16" xml:space="preserve">
+    <value>UTF-16 内容不完整或已损坏</value>
+  </data>
+  <data name="Codec_Binary" xml:space="preserve">
+    <value>文件看起来是二进制文件，不是文本</value>
+  </data>
+  <data name="Codec_UnknownEncoding" xml:space="preserve">
+    <value>无法识别文件编码（既不是 UTF-8 也不是 GB18030）</value>
+  </data>
+  <data name="Codec_NoRoundTrip" xml:space="preserve">
+    <value>重新编码后与原始字节不一致</value>
+  </data>
+  <data name="Eol_Mixed" xml:space="preserve">
+    <value>混合换行</value>
+  </data>
+</root>
