@@ -32,7 +32,7 @@ Build the portable program from source (see [Build from source](#build-from-sour
 | Area | What it does |
 | --- | --- |
 | `Read / Split / Edit` (top centre) | Three modes. Split = edit the source on the left with a live preview on the right; both sides scroll together |
-| Outline (left) | Click a heading to jump to it. Shown at every start and whenever a file is opened; hide it for the session with the button at the top right or Ctrl+Shift+O. It is narrower in Split mode to leave room for both panes, and steps aside automatically on narrow windows (Split mode below about 900 px) |
+| Outline (left) | Click a heading to jump to it. Shown at every start and whenever a file is opened; hide it for the session with the button at the top right or Ctrl+Shift+O. It is narrower in Split mode to leave room for both panes, and steps aside automatically on narrow windows (below about 900 px in Split mode, 700 px otherwise) |
 | Toolbar above the editor | Bold, italic, strikethrough, inline code, heading level, lists, task list, quote, code block, link, image, table, horizontal rule |
 | Right-click menus | Editor: undo, redo, cut, copy, paste, select all, common formatting, find, replace. Preview: copy, select all, copy image / link |
 | Top right | Outline toggle, find, theme (system / light / dark) |
@@ -48,7 +48,9 @@ Keyboard shortcuts:
 | Ctrl+S / Ctrl+Shift+S | Save / save as | Ctrl+1 / 2 / 3 | Read / Split / Edit |
 | Ctrl+Z / Ctrl+Y | Undo / redo | Ctrl+B / Ctrl+I | Bold / italic |
 | Ctrl+K / Ctrl+Shift+K | Link / code block | Ctrl+Alt+1…6 | Heading level |
-| Ctrl+` | Inline code | Ctrl+= / Ctrl+- / Ctrl+0 | Zoom in / out / reset |
+| Ctrl+` | Inline code | Ctrl+= / Ctrl+- / Ctrl+0 (or Ctrl+wheel) | Zoom in / out / reset |
+| Ctrl+Shift+X | Strikethrough | Ctrl+Shift+O | Show / hide the outline |
+| Ctrl+P | Print | Esc | Close the find bar |
 | Enter | Continues lists, tasks and quotes; Enter on an empty item ends the list | Shift+Enter | Plain line break |
 
 In the find box, Enter / Shift+Enter also move to the next / previous match — handy if another program has taken over F3.
