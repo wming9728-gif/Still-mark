@@ -2,16 +2,17 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-A local Markdown reader and editor for Windows 11. It runs completely offline — no account, network or paid service needed. The interface is available in English and Simplified Chinese.
+A local Markdown reader and editor for Windows. It runs completely offline — no account, network or paid service needed. The interface is available in English and Simplified Chinese.
 
 ![Split view](docs/screenshots/split-en.png)
 
 ## Run it
 
-Build the portable program from source (see [Build from source](#build-from-source)); it ends up in `dist\InkPage\InkPage.exe`. Open [docs/example.md](docs/example.md) for a quick tour.
+Build the portable program from source (see [Building](#building)); it ends up in `dist\InkPage\InkPage.exe`. Open [docs/example.md](docs/example.md) for a quick tour.
 
+- Runs on Windows 10 and Windows 11 (64-bit).
 - Portable: nothing to install, and no .NET installation needed (the runtime is bundled in the exe).
-- The preview uses the Microsoft Edge WebView2 Runtime, which ships with Windows 11. If it is missing, editing and saving still work and the preview area explains what is needed.
+- The preview uses the Microsoft Edge WebView2 Runtime: it ships with Windows 11; on Windows 10 it is usually installed together with Microsoft Edge, and it can also be downloaded free from Microsoft. If it is missing, editing and saving still work and the preview area explains what is needed.
 - Opening files: drag a `.md` file onto the window (editor or preview), use Menu → Open…, or run `InkPage.exe <path>`.
 - InkPage never writes to the registry and does not register file types, so it is **not** in the "Open with" list at first. Add it once:
   1. In File Explorer, right-click any `.md` file → "Open with" → "Choose another app".
@@ -32,7 +33,7 @@ Build the portable program from source (see [Build from source](#build-from-sour
 | Area | What it does |
 | --- | --- |
 | `Read / Split / Edit` (top centre) | Three modes. Split = edit the source on the left with a live preview on the right; both sides scroll together |
-| Outline (left) | Click a heading to jump to it. Shown at every start and whenever a file is opened; hide it for the session with the button at the top right or Ctrl+Shift+O. It is narrower in Split mode to leave room for both panes, and steps aside automatically on narrow windows (below about 900 px in Split mode, 700 px otherwise) |
+| Outline (left) | Click a heading to jump to it. Shown at every start and whenever a file is opened; hide it for the session with the button at the top right or Ctrl+Shift+O. In Split mode it narrows automatically to leave room for both panes, and it steps aside automatically on narrow windows (below about 900 px in Split mode, 700 px otherwise) |
 | Toolbar above the editor | Bold, italic, strikethrough, inline code, heading level, lists, task list, quote, code block, link, image, table, horizontal rule |
 | Right-click menus | Editor: undo, redo, cut, copy, paste, select all, common formatting, find, replace. Preview: copy, select all, copy image / link |
 | Top right | Outline toggle, find, theme (system / light / dark) |
@@ -55,7 +56,7 @@ Keyboard shortcuts:
 
 In the find box, Enter / Shift+Enter also move to the next / previous match — handy if another program has taken over F3.
 
-### File safety (the main design goal)
+### About file safety
 
 - No change, no write: saving an unedited document does not touch the file (same bytes, same modification time).
 - The original format is kept: encoding, BOM and every line's own line ending (LF / CRLF / mixed); new and pasted line breaks follow the line they are on.
@@ -63,11 +64,11 @@ In the find box, Enter / Shift+Enter also move to the next / previous match — 
 - Safe writes: temporary file in the same folder → flush to disk → byte-for-byte check → atomic replace → check again. If any step fails, the original file is left as it was.
 - Conflict protection: changes or deletion by other programs are reported; unsaved work is never silently overwritten, and overwriting needs an explicit confirmation.
 - Files whose encoding cannot be identified safely (broken UTF-8, binary, UTF-32, …) open read-only and can only be saved under a new name.
-- Unsaved work is written to a recovery draft every 8 seconds; after a crash or a failed save, InkPage offers to restore it at the next start.
+- Unsaved work is written to a recovery draft every 8 seconds; after a crash or a failed save, InkPage asks at the next start whether to restore it.
 
 ### Data folder
 
-Settings, recent files, recovery drafts and the preview cache are kept in `data\` next to `InkPage.exe` (portable). If that folder is not writable (for example under Program Files), `%LOCALAPPDATA%\InkPage` is used instead.
+Settings, recent files, recovery drafts and the preview cache are kept in `data\` next to `InkPage.exe` (portable version). If that folder is not writable (for example under Program Files), `%LOCALAPPDATA%\InkPage` is used instead.
 
 ## Project layout
 
@@ -84,30 +85,32 @@ InkPage/
 └─ InkPage.sln
 ```
 
-### Translations
+### Interface translations
 
-All interface text lives in resource files; the code itself contains no text in either language:
+Only English and Simplified Chinese are available for now.
+
+All interface text lives in resource files; no language is hard-coded in the source:
 
 - `src/InkPage/Localization/Strings.resx` (English, also the fallback) and `Strings.zh-Hans.resx` (Simplified Chinese);
 - `src/InkPage.Core/Resources/CoreStrings.resx` and `CoreStrings.zh-Hans.resx` (file-handling messages).
 
 Both languages must have the same entries with the same placeholders (such as `{0}`). Adding a language means adding `Strings.<culture>.resx` and `CoreStrings.<culture>.resx` and registering the language in `Localization/Loc.cs` and the menu.
 
-## Build from source
+## Building
 
-Requires the .NET 10 SDK.
+1. Requires the .NET 10 SDK.
 
 ```bash
 dotnet build InkPage.sln
 ```
 
-Portable release build (self-contained single file in `dist\InkPage`; an existing `dist\InkPage\data` folder is kept):
+2. Portable release build (self-contained single file in `dist\InkPage`; an existing `dist\InkPage\data` folder is kept):
 
 ```bash
 powershell -ExecutionPolicy Bypass -File tools/publish.ps1
 ```
 
-InkPage has an automation channel for GUI testing. It only exists when the program is started with `--automation <pipe name>` (a named pipe restricted to the current user); a normal start never opens it.
+**Note:** InkPage has an automation channel for GUI testing. It only exists when the program is started with `--automation <pipe name>` (a named pipe restricted to the current user); a normal start never opens it.
 
 ## Technology and third-party components
 
@@ -120,4 +123,4 @@ InkPage has an automation channel for GUI testing. It only exists when the progr
 | highlight.js 11.12 | Code highlighting (bundled offline) | BSD-3-Clause |
 | JetBrains Mono | Code font in the preview (bundled offline) | OFL-1.1 |
 
-Typography: a clean sans-serif layout with GitHub-style tables and code blocks, 16 px text at 1.75 line height, light and dark themes. The reading sheet widens with the window — 1040 px in a normal window, up to 1360 px (text column up to 1180 px) — so a maximised window is not mostly margin.
+Typography: a clean sans-serif layout with GitHub-style tables and code blocks, 16 px text at 1.75 line height, light and dark themes. The reading sheet widens with the window — 1040 px in a normal window, up to 1360 px (text column up to 1180 px) — so a full-screen window keeps only a small margin on each side.

@@ -79,10 +79,13 @@ public static class ThemeManager
         var hwnd = new WindowInteropHelper(w).Handle;
         if (hwnd == IntPtr.Zero) return;
         int dark = IsDark ? 1 : 0;
-        DwmSetWindowAttribute(hwnd, 20, ref dark, sizeof(int)); // DWMWA_USE_IMMERSIVE_DARK_MODE
+        // DWMWA_USE_IMMERSIVE_DARK_MODE is 20 from Windows 10 2004 on and 19 on earlier Windows 10 builds.
+        if (DwmSetWindowAttribute(hwnd, 20, ref dark, sizeof(int)) != 0)
+            DwmSetWindowAttribute(hwnd, 19, ref dark, sizeof(int));
+        // Caption and text colours exist on Windows 11 only; Windows 10 keeps its light/dark title bar.
         var c = Color("Brush.Page");
         int colorRef = c.R | (c.G << 8) | (c.B << 16);
-        DwmSetWindowAttribute(hwnd, 35, ref colorRef, sizeof(int)); // DWMWA_CAPTION_COLOR (Win11)
+        DwmSetWindowAttribute(hwnd, 35, ref colorRef, sizeof(int)); // DWMWA_CAPTION_COLOR
         var t = Color("Brush.Fg");
         int textRef = t.R | (t.G << 8) | (t.B << 16);
         DwmSetWindowAttribute(hwnd, 36, ref textRef, sizeof(int)); // DWMWA_TEXT_COLOR

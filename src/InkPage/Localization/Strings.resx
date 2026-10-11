@@ -603,7 +603,7 @@ Nothing was written. Your content is still in the editor.</value>
     <value>Restored the unsaved draft from {0:MMM d, HH:mm}. Check it, then save. {1}</value>
   </data>
   <data name="Preview_NoWebView2" xml:space="preserve">
-    <value>The preview needs the Microsoft Edge WebView2 Runtime (included with Windows 11), which wasn't found on this system. Editing and saving still work.</value>
+    <value>The preview needs the Microsoft Edge WebView2 Runtime, which wasn't found on this system. It comes with Windows 11; on Windows 10 it is usually installed together with Microsoft Edge, and it can also be downloaded free from Microsoft. Editing and saving still work.</value>
   </data>
   <data name="Preview_Failed" xml:space="preserve">
     <value>The preview component couldn't start: {0}

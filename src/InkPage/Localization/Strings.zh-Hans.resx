@@ -603,7 +603,7 @@
     <value>已恢复 {0:MM-dd HH:mm} 的未保存草稿。检查无误后请保存。{1}</value>
   </data>
   <data name="Preview_NoWebView2" xml:space="preserve">
-    <value>预览需要 Microsoft Edge WebView2 运行时（Windows 11 默认自带）。当前系统上没有找到它，编辑和保存功能不受影响。</value>
+    <value>预览需要 Microsoft Edge WebView2 运行时，当前系统上没有找到它。Windows 11 默认自带；Windows 10 通常会随 Microsoft Edge 一起安装，也可以从微软官网免费下载。编辑和保存功能不受影响。</value>
   </data>
   <data name="Preview_Failed" xml:space="preserve">
     <value>预览组件无法启动：{0}
