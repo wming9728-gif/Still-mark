@@ -29,7 +29,10 @@ public partial class App : Application
         var w = new MainWindow(settings, path, restore);
         MainWindow = w;
         w.Show();
+#if AUTOMATION
+        // Test builds only (see InkPage.csproj); release builds parse and ignore the argument.
         if (automation != null) new AutomationServer(automation, w.HandleAutomation).Start();
+#endif
     }
 
     private DateTime _lastErrorShown = DateTime.MinValue;

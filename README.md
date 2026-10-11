@@ -110,7 +110,7 @@ dotnet build InkPage.sln
 powershell -ExecutionPolicy Bypass -File tools/publish.ps1
 ```
 
-**Note:** InkPage has an automation channel for GUI testing. It only exists when the program is started with `--automation <pipe name>` (a named pipe restricted to the current user); a normal start never opens it.
+**Note:** the official package (the default output of `tools/publish.ps1`) does not contain the test automation channel. The channel is compiled only into Debug builds and into test packages (`tools/publish.ps1 -WithAutomation`, written to `dist\InkPage-test`), and even there it opens only when the program is started with `--automation <pipe name>` (a named pipe restricted to the current user).
 
 ## Technology and third-party components
 

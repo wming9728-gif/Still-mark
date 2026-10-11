@@ -110,7 +110,7 @@ dotnet build InkPage.sln
 powershell -ExecutionPolicy Bypass -File tools/publish.ps1
 ```
 
-注意！！！InkPage 内置一个供界面测试使用的自动化通道，只有用 `--automation <管道名>` 参数启动时才会开启（仅限当前用户访问的命名管道），正常启动时不存在。
+注意！！！正式发布包（`tools/publish.ps1` 默认打出的包）不包含测试通道。界面测试使用的自动化通道只编译进 Debug 版本和测试专用包（`tools/publish.ps1 -WithAutomation`，输出到 `dist\InkPage-test`），而且只有用 `--automation <管道名>` 参数启动时才会开启（仅限当前用户访问的命名管道）。
 
 ## 技术栈与第三方组件
 

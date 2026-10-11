@@ -19,6 +19,19 @@
     <PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
   </PropertyGroup>
 
+  <!--
+    The test automation channel (the "automation <pipe name>" command-line option) is compiled into Debug builds only,
+    or into any build made with -p:InkPageAutomation=true (tools\publish.ps1 -WithAutomation). Release builds,
+    including the official package, do not contain it at all.
+  -->
+  <PropertyGroup>
+    <InkPageAutomation Condition="'$(InkPageAutomation)' == '' and '$(Configuration)' == 'Debug'">true</InkPageAutomation>
+    <DefineConstants Condition="'$(InkPageAutomation)' == 'true'">$(DefineConstants);AUTOMATION</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(InkPageAutomation)' != 'true'">
+    <Compile Remove="MainWindow.Automation.cs;Services\AutomationServer.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\InkPage.Core\InkPage.Core.csproj" />
   </ItemGroup>
