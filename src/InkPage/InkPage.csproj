@@ -44,6 +44,9 @@
   <ItemGroup>
     <Resource Include="Assets\app.ico" />
     <Content Include="web\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <!-- Builds run portable (data next to the exe). Published output gets the marker only from tools\publish.ps1,
+         so the installer's files carry none and the installed program uses %LOCALAPPDATA%\InkPage. -->
+    <None Update="portable.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
 </Project>

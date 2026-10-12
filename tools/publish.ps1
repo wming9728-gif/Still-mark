@@ -16,4 +16,6 @@ dotnet publish "$root\src\InkPage\InkPage.csproj" -c Release -r win-x64 --self-c
     -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true `
     -p:DebugType=none "-p:InkPageAutomation=$(if ($WithAutomation) { 'true' } else { 'false' })" -o $out -nologo
 if ($LASTEXITCODE -ne 0) { throw "publish failed" }
+# Portable package: the marker keeps settings and drafts in data\ next to the exe (see AppPaths).
+Copy-Item "$root\src\InkPage\portable.txt" $out -Force
 Get-ChildItem $out -Recurse -File | Where-Object { -not $_.FullName.StartsWith("$out\data\") } | ForEach-Object { "{0,12:N0}  {1}" -f $_.Length, $_.FullName.Substring($out.Length + 1) }

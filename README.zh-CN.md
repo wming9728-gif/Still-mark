@@ -10,8 +10,11 @@ Windows 本地 Markdown 阅读与编辑器。离线运行，无需账户、网�
 
 从源码构建便携版（见[关于构建](#关于构建)），程序位于 `dist\InkPage\InkPage.exe`。可以打开 [docs/example.zh-CN.md](docs/example.zh-CN.md) 快速体验。
 
+也可以构建安装版（同样见[关于构建](#关于构建)）：运行 `dist\installer\InkPage-<版本>-setup.exe` 安装后，从开始菜单启动。
+
 - 支持 Windows 10 和 Windows 11（64 位）。
 - 便携版，无需安装，也不需要预先安装 .NET（运行时已打包在 exe 内）。
+- 安装版：默认只为当前用户安装，不需要管理员权限（安装时也可以选择为所有用户安装）；同样不需要预先安装 .NET；需要 Windows 10 1809 或更高版本。可在 Windows“设置 → 应用”中卸载。
 - 预览依赖 Microsoft Edge WebView2 运行时：Windows 11 自带；Windows 10 通常会随 Microsoft Edge 一起安装，也可以从微软官网免费下载。万一缺失，编辑和保存不受影响，预览区会给出说明。
 - 打开文件：把 `.md` 文件拖到窗口上（编辑区或预览区都可以），或用菜单 → 打开，或命令行 `InkPage.exe 文件路径`。
 - 程序不会写注册表，也不会自动关联文件类型，所以右键“打开方式”列表里一开始**没有** InkPage，需要手动添加一次：
@@ -20,6 +23,8 @@ Windows 本地 Markdown 阅读与编辑器。离线运行，无需账户、网�
   3. 选“始终”会把 InkPage 设为 `.md` 的默认程序（双击即用 InkPage 打开），选“仅一次”则只是这次使用。
 
   添加过一次后，InkPage 就会一直出现在右键“打开方式”列表里。如果之后移动了 InkPage 所在的文件夹，需要按上面的步骤重新选择一次。
+
+  以上是便携版的做法。安装版在安装时有“把 InkPage 加入 .md / .markdown 文件的‘打开方式’”选项（默认勾选），勾选后右键“打开方式”里直接就有 InkPage。要设为默认程序，仍然在“打开方式”里选“始终”，或在 Windows“设置 → 应用 → 默认应用”中设置（Windows 不允许程序自己更改默认程序）。卸载时这些登记会一并移除。
 
 ## 界面语言
 
@@ -70,6 +75,8 @@ Windows 本地 Markdown 阅读与编辑器。离线运行，无需账户、网�
 
 设置、最近文件、恢复草稿和预览组件缓存保存在 `InkPage.exe` 同目录的 `data\` 中（便携版本）。若该目录不可写（例如放在 Program Files），自动改用 `%LOCALAPPDATA%\InkPage`。
 
+便携版靠 `InkPage.exe` 旁边的 `portable.txt` 识别，请不要删除它（删除后，如果旁边也没有 `data\` 文件夹，程序会按安装版处理）。安装版没有这个文件，数据保存在 `%LOCALAPPDATA%\InkPage`，更新或卸载程序都不会改动；如需彻底清除，卸载后手动删除该文件夹即可。菜单 →“关于 InkPage”会显示当前使用的数据目录。
+
 ## 项目结构
 
 ```
@@ -80,6 +87,7 @@ InkPage/
 │  └─ InkPage/              WPF 桌面程序：主窗口、编辑器扩展、主题、对话框、预览页面（web/）
 │     └─ Localization/      界面文字（Strings.resx 英文 / Strings.zh-Hans.resx 中文）与语言切换
 ├─ tools/                   打包、图标生成、离线前端资源下载脚本
+├─ installer/               安装包脚本（Inno Setup）与安装界面的简体中文翻译
 ├─ docs/                    示例文档与截图
 ├─ README.md / README.zh-CN.md
 └─ InkPage.sln
@@ -112,6 +120,12 @@ powershell -ExecutionPolicy Bypass -File tools/publish.ps1
 
 注意！！！正式发布包（`tools/publish.ps1` 默认打出的包）不包含测试通道。界面测试使用的自动化通道只编译进 Debug 版本和测试专用包（`tools/publish.ps1 -WithAutomation`，输出到 `dist\InkPage-test`），而且只有用 `--automation <管道名>` 参数启动时才会开启（仅限当前用户访问的命名管道）。
 
+3.打包安装版（输出到 `dist\installer\InkPage-<版本>-setup.exe`）。需要 Inno Setup 6（可以用 `winget install JRSoftware.InnoSetup` 安装）。安装包同样不包含测试通道，也不带 `portable.txt`：
+
+```bash
+powershell -ExecutionPolicy Bypass -File tools/build-installer.ps1
+```
+
 ## 技术栈与第三方组件
 
 | 组件 | 用途 | 许可 |
@@ -122,5 +136,6 @@ powershell -ExecutionPolicy Bypass -File tools/publish.ps1
 | Microsoft Edge WebView2 | 阅读与预览渲染 | Microsoft |
 | highlight.js 11.12 | 代码高亮（离线打包） | BSD-3-Clause |
 | JetBrains Mono | 预览代码字体（离线打包） | OFL-1.1 |
+| Inno Setup 6 | 制作安装包（安装界面的简体中文为其收录的非官方翻译） | Inno Setup License |
 
 排版：简洁的无衬线布局，GitHub 风格的表格与代码块，正文 16px、行高 1.75，浅色 / 深色两套配色。阅读纸张宽度随窗口变化：普通窗口下为 1040px，窗口越大越宽，最宽 1360px（正文最宽 1180px），全屏时两边会留出少量空白。

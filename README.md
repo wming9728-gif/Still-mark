@@ -10,8 +10,11 @@ A local Markdown reader and editor for Windows. It runs completely offline — n
 
 Build the portable program from source (see [Building](#building)); it ends up in `dist\InkPage\InkPage.exe`. Open [docs/example.md](docs/example.md) for a quick tour.
 
+You can also build an installer (see [Building](#building) as well): run `dist\installer\InkPage-<version>-setup.exe`, then start InkPage from the Start menu.
+
 - Runs on Windows 10 and Windows 11 (64-bit).
 - Portable: nothing to install, and no .NET installation needed (the runtime is bundled in the exe).
+- Installer: installs for the current user by default, without administrator rights (installing for all users is offered as well); no .NET installation needed either; requires Windows 10 version 1809 or later. Uninstall it from Windows Settings → Apps.
 - The preview uses the Microsoft Edge WebView2 Runtime: it ships with Windows 11; on Windows 10 it is usually installed together with Microsoft Edge, and it can also be downloaded free from Microsoft. If it is missing, editing and saving still work and the preview area explains what is needed.
 - Opening files: drag a `.md` file onto the window (editor or preview), use Menu → Open…, or run `InkPage.exe <path>`.
 - InkPage never writes to the registry and does not register file types, so it is **not** in the "Open with" list at first. Add it once:
@@ -20,6 +23,8 @@ Build the portable program from source (see [Building](#building)); it ends up i
   3. "Always" makes InkPage the default for `.md` files (double-click opens them in InkPage); "Just once" only uses it this time.
 
   After that, InkPage stays in the "Open with" list. If you move the InkPage folder later, select it again the same way.
+
+  That is for the portable version. The installer offers "Add InkPage to 'Open with' for .md / .markdown files" (checked by default); with it, InkPage is in the "Open with" list right away. To make it the default app, still choose "Always" under "Open with", or use Windows Settings → Apps → Default apps (Windows does not let programs change the default app themselves). Uninstalling removes these entries.
 
 ## Interface language
 
@@ -70,6 +75,8 @@ In the find box, Enter / Shift+Enter also move to the next / previous match — 
 
 Settings, recent files, recovery drafts and the preview cache are kept in `data\` next to `InkPage.exe` (portable version). If that folder is not writable (for example under Program Files), `%LOCALAPPDATA%\InkPage` is used instead.
 
+The portable version is recognised by the `portable.txt` file next to `InkPage.exe`, so please keep it (without it, and without a `data\` folder, InkPage behaves like the installed version). The installed version has no such file and keeps its data in `%LOCALAPPDATA%\InkPage`, which updates and uninstalls leave untouched; to remove it completely, delete that folder after uninstalling. Menu → "About InkPage" shows which data folder is in use.
+
 ## Project layout
 
 ```
@@ -80,6 +87,7 @@ InkPage/
 │  └─ InkPage/              WPF desktop app: main window, editor extensions, themes, dialogs, preview page (web/)
 │     └─ Localization/      UI strings (Strings.resx English / Strings.zh-Hans.resx Chinese) and language switching
 ├─ tools/                   packaging, icon generation, offline front-end asset download
+├─ installer/               installer script (Inno Setup) and the Simplified Chinese setup translation
 ├─ docs/                    example documents and screenshots
 ├─ README.md / README.zh-CN.md
 └─ InkPage.sln
@@ -112,6 +120,12 @@ powershell -ExecutionPolicy Bypass -File tools/publish.ps1
 
 **Note:** the official package (the default output of `tools/publish.ps1`) does not contain the test automation channel. The channel is compiled only into Debug builds and into test packages (`tools/publish.ps1 -WithAutomation`, written to `dist\InkPage-test`), and even there it opens only when the program is started with `--automation <pipe name>` (a named pipe restricted to the current user).
 
+3. Installer (written to `dist\installer\InkPage-<version>-setup.exe`). Requires Inno Setup 6 (for example `winget install JRSoftware.InnoSetup`). The installer contains no test automation channel and no `portable.txt` either:
+
+```bash
+powershell -ExecutionPolicy Bypass -File tools/build-installer.ps1
+```
+
 ## Technology and third-party components
 
 | Component | Used for | License |
@@ -122,5 +136,6 @@ powershell -ExecutionPolicy Bypass -File tools/publish.ps1
 | Microsoft Edge WebView2 | Reading view and preview rendering | Microsoft |
 | highlight.js 11.12 | Code highlighting (bundled offline) | BSD-3-Clause |
 | JetBrains Mono | Code font in the preview (bundled offline) | OFL-1.1 |
+| Inno Setup 6 | Builds the installer (the Simplified Chinese setup text is its bundled unofficial translation) | Inno Setup License |
 
 Typography: a clean sans-serif layout with GitHub-style tables and code blocks, 16 px text at 1.75 line height, light and dark themes. The reading sheet widens with the window — 1040 px in a normal window, up to 1360 px (text column up to 1180 px) — so a full-screen window keeps only a small margin on each side.

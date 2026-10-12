@@ -67,13 +67,20 @@ public sealed class AppSettings
 }
 
 /// <summary>
-/// Portable layout: settings, drafts and the WebView2 profile live in "data" next to the executable when that
-/// folder is writable; otherwise under %LOCALAPPDATA%\InkPage.
+/// Where settings, drafts and the WebView2 profile live. A portable copy — marked by "portable.txt" next to the
+/// executable, or an existing "data" folder there from an older portable copy — keeps them in that "data"
+/// folder. An installed copy (no marker) keeps them in %LOCALAPPDATA%\InkPage, so updates and uninstalls of the
+/// program folder never touch them. A portable copy in a read-only folder falls back to %LOCALAPPDATA% too.
 /// </summary>
 public static class AppPaths
 {
+    public const string PortableMarker = "portable.txt";
+
     public static string AppDir { get; } = AppContext.BaseDirectory;
     public static string WebDir => Path.Combine(AppDir, "web");
+
+    public static bool IsPortable { get; } =
+        File.Exists(Path.Combine(AppDir, PortableMarker)) || Directory.Exists(Path.Combine(AppDir, "data"));
 
     private static string? _dataDir;
     public static string DataDir => _dataDir ??= ResolveDataDir();
@@ -83,20 +90,24 @@ public static class AppPaths
 
     private static string ResolveDataDir()
     {
-        var portable = Path.Combine(AppDir, "data");
-        try
+        if (IsPortable)
         {
-            Directory.CreateDirectory(portable);
-            var probe = Path.Combine(portable, ".write-probe");
-            File.WriteAllText(probe, "ok");
-            File.Delete(probe);
-            return portable;
+            var portable = Path.Combine(AppDir, "data");
+            try
+            {
+                Directory.CreateDirectory(portable);
+                var probe = Path.Combine(portable, ".write-probe");
+                File.WriteAllText(probe, "ok");
+                File.Delete(probe);
+                return portable;
+            }
+            catch
+            {
+                // not writable (e.g. copied under Program Files): use the per-user folder below
+            }
         }
-        catch
-        {
-            var local = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "InkPage");
-            Directory.CreateDirectory(local);
-            return local;
-        }
+        var local = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "InkPage");
+        Directory.CreateDirectory(local);
+        return local;
     }
 }
