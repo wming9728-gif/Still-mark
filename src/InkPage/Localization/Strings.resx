@@ -72,9 +72,6 @@
   <data name="Tip_Find" xml:space="preserve">
     <value>Find (Ctrl+F)</value>
   </data>
-  <data name="Cmd_Theme" xml:space="preserve">
-    <value>Theme</value>
-  </data>
   <data name="Cmd_Close" xml:space="preserve">
     <value>Close</value>
   </data>
@@ -348,14 +345,11 @@
   <data name="Menu_ThemeDark" xml:space="preserve">
     <value>Dark Theme</value>
   </data>
-  <data name="Theme_System" xml:space="preserve">
-    <value>Use System Setting</value>
+  <data name="Theme_ToDark" xml:space="preserve">
+    <value>Switch to Dark Theme</value>
   </data>
-  <data name="Theme_Light" xml:space="preserve">
-    <value>Light</value>
-  </data>
-  <data name="Theme_Dark" xml:space="preserve">
-    <value>Dark</value>
+  <data name="Theme_ToLight" xml:space="preserve">
+    <value>Switch to Light Theme</value>
   </data>
   <data name="Menu_Language" xml:space="preserve">
     <value>Language / 语言</value>

@@ -31,6 +31,8 @@ public partial class MainWindow
                     ["dirty"] = IsDirty,
                     ["mode"] = _mode.ToString(),
                     ["theme"] = ThemeManager.IsDark ? "dark" : "light",
+                    ["themeSetting"] = _settings.Theme.ToString(),
+                    ["themeButton"] = $"{(int)((string)ThemeButton.Content)[0]:X4}|{AutomationProperties.GetName(ThemeButton)}|{ThemeButton.ToolTip}",
                     ["language"] = Loc.Code,
                     ["languageSetting"] = _settings.Language.ToString(),
                     ["systemCulture"] = Loc.SystemCultureName,
@@ -214,6 +216,7 @@ public partial class MainWindow
             case "close": Close(); break;
             case "mode": SetMode(Enum.Parse<ViewMode>(arg!), sync: true); break;
             case "theme": SetTheme(Enum.Parse<ThemeChoice>(arg!)); break;
+            case "themeButton": ThemeButton_Click(ThemeButton, new RoutedEventArgs()); break;
             case "language": SetLanguage(Enum.Parse<LanguageChoice>(arg!)); break;
             case "ligatures": SetCodeLigatures(bool.Parse(arg!)); break;
             case "outline": SetOutlineVisible(bool.Parse(arg!)); break;
@@ -274,7 +277,6 @@ public partial class MainWindow
         if (Editor.ContextMenu != null) Walk(Editor.ContextMenu);
         Walk(BuildMainMenu());
         Walk(BuildHeadingMenu());
-        Walk(BuildThemeMenu());
         return list;
     }
 

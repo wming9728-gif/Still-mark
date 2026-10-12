@@ -41,7 +41,7 @@ You can also build an installer (see [Building](#building) as well): run `dist\i
 | Outline (left) | Click a heading to jump to it. Shown at every start and whenever a file is opened; hide it for the session with the button at the top right or Ctrl+Shift+O. In Split mode it narrows automatically to leave room for both panes, and it steps aside automatically on narrow windows (below about 900 px in Split mode, 700 px otherwise) |
 | Toolbar above the editor | Bold, italic, strikethrough, inline code, heading level, lists, task list, quote, code block, link, image, table, horizontal rule |
 | Right-click menus | Editor: undo, redo, cut, copy, paste, select all, common formatting, find, replace. Preview: copy, select all, copy image / link |
-| Top right | Outline toggle, find, theme (system / light / dark) |
+| Top right | Outline toggle, find, theme (one click switches between light and dark; "Use System Theme" is under ≡ menu → View) |
 | Status bar | Caret position, word count, zoom, line endings (LF / CRLF / mixed), encoding (UTF-8 / UTF-8 BOM / UTF-16 / GB18030) |
 | ≡ menu (top left) | File commands, recent files, edit, view, language, file format conversion, export to HTML, print, about. View → "Code Ligatures in Preview" is off by default, so code reads exactly as written (`<=` is not drawn as `≤`); turn it on if you like ligatures |
 

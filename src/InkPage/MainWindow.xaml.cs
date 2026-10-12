@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -49,6 +50,7 @@ public partial class MainWindow : Window
         InitPreviewTimers();
         RestoreWindowPlacement();
         ApplyEditorTheme();
+        UpdateThemeButton();
 
         _zoom = Math.Clamp(settings.PreviewZoom, 0.5, 3.0);
         ApplyZoom(_zoom, fromPreview: false);
@@ -224,6 +226,7 @@ public partial class MainWindow : Window
     {
         ApplyEditorTheme();
         ApplyPreviewTheme();
+        UpdateThemeButton();
     }
 
     private void OnSystemPreferenceChanged(object sender, Microsoft.Win32.UserPreferenceChangedEventArgs e)
@@ -239,24 +242,18 @@ public partial class MainWindow : Window
         _settings.Save();
     }
 
-    private void ThemeButton_Click(object sender, RoutedEventArgs e)
-    {
-        var menu = BuildThemeMenu();
-        menu.PlacementTarget = ThemeButton;
-        menu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-        menu.IsOpen = true;
-    }
+    // Switches to the opposite of what is on screen (also when following the system); "Use System Theme"
+    // stays in the main menu's View section.
+    private void ThemeButton_Click(object sender, RoutedEventArgs e) =>
+        SetTheme(ThemeManager.IsDark ? ThemeChoice.Light : ThemeChoice.Dark);
 
-    private ContextMenu BuildThemeMenu()
+    /// <summary>The button shows what a click does: a moon in the light theme, a sun in the dark theme.</summary>
+    private void UpdateThemeButton()
     {
-        var menu = new ContextMenu();
-        foreach (var (key, choice) in new[] { ("Theme_System", ThemeChoice.System), ("Theme_Light", ThemeChoice.Light), ("Theme_Dark", ThemeChoice.Dark) })
-        {
-            var item = new MenuItem { Header = Loc.T(key), IsChecked = _settings.Theme == choice };
-            item.Click += (_, _) => SetTheme(choice);
-            menu.Items.Add(item);
-        }
-        return menu;
+        ThemeButton.Content = ThemeManager.IsDark ? "" : "";
+        var text = Loc.T(ThemeManager.IsDark ? "Theme_ToLight" : "Theme_ToDark");
+        ThemeButton.ToolTip = text;
+        AutomationProperties.SetName(ThemeButton, text);
     }
 
     // ------------------------------------------------------------------ language
@@ -277,6 +274,7 @@ public partial class MainWindow : Window
         UpdateFormatStatus();
         UpdateWordCount();
         UpdateFindCountText();
+        UpdateThemeButton();
         RelocalizeInfo();
         StatusMessage.Text = ""; // transient; would otherwise linger in the old language
         if (_previewFallbackText != null) PreviewFallbackText.Text = _previewFallbackText();

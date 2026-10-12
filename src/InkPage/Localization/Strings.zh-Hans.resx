@@ -72,9 +72,6 @@
   <data name="Tip_Find" xml:space="preserve">
     <value>查找 (Ctrl+F)</value>
   </data>
-  <data name="Cmd_Theme" xml:space="preserve">
-    <value>主题</value>
-  </data>
   <data name="Cmd_Close" xml:space="preserve">
     <value>关闭</value>
   </data>
@@ -348,14 +345,11 @@
   <data name="Menu_ThemeDark" xml:space="preserve">
     <value>深色主题</value>
   </data>
-  <data name="Theme_System" xml:space="preserve">
-    <value>跟随系统</value>
+  <data name="Theme_ToDark" xml:space="preserve">
+    <value>切换到深色主题</value>
   </data>
-  <data name="Theme_Light" xml:space="preserve">
-    <value>浅色</value>
-  </data>
-  <data name="Theme_Dark" xml:space="preserve">
-    <value>深色</value>
+  <data name="Theme_ToLight" xml:space="preserve">
+    <value>切换到浅色主题</value>
   </data>
   <data name="Menu_Language" xml:space="preserve">
     <value>语言 / Language</value>
