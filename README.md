@@ -8,9 +8,11 @@ A local Markdown reader and editor for Windows. It runs completely offline — n
 
 ## Run it
 
-Build the portable program from source (see [Building](#building)); it ends up in `dist\StillMark\StillMark.exe`. Open [docs/example.md](docs/example.md) for a quick tour.
+Download the installer or the portable version from [Releases](https://github.com/wming9728-gif/Still-mark/releases): run `StillMark-<version>-setup.exe` and start Still mark from the Start menu, or unzip `StillMark-<version>-portable.zip` and run `StillMark\StillMark.exe` inside it. Open [docs/example.md](docs/example.md) for a quick tour.
 
-You can also build an installer (see [Building](#building) as well): run `dist\installer\StillMark-<version>-setup.exe`, then start Still mark from the Start menu.
+Still mark is not code-signed, so the first time it runs Windows may show "Windows protected your PC"; click "More info", then "Run anyway". `SHA256SUMS.txt` on the same page lets you check that the downloaded files are intact.
+
+You can also build it from source (see [Building](#building)): the portable program ends up in `dist\StillMark\StillMark.exe`, the installer in `dist\installer\StillMark-<version>-setup.exe`.
 
 - Runs on Windows 10 and Windows 11 (64-bit).
 - Portable: nothing to install, and no .NET installation needed (the runtime is bundled in the exe).

@@ -8,9 +8,11 @@ Windows 本地 Markdown 阅读与编辑器。离线运行，无需账户、网�
 
 ## 运行
 
-从源码构建便携版（见[关于构建](#关于构建)），程序位于 `dist\StillMark\StillMark.exe`。可以打开 [docs/example.zh-CN.md](docs/example.zh-CN.md) 快速体验。
+从 [Releases](https://github.com/wming9728-gif/Still-mark/releases) 页面下载安装版或便携版：运行 `StillMark-<版本>-setup.exe` 安装后，从开始菜单启动；或者解压 `StillMark-<版本>-portable.zip`，运行其中的 `StillMark\StillMark.exe`。可以打开 [docs/example.zh-CN.md](docs/example.zh-CN.md) 快速体验。
 
-也可以构建安装版（同样见[关于构建](#关于构建)）：运行 `dist\installer\StillMark-<版本>-setup.exe` 安装后，从开始菜单启动。
+程序没有数字签名，第一次运行时 Windows 可能提示“Windows 已保护你的电脑”，点“更多信息”，再点“仍要运行”即可。同一页面的 `SHA256SUMS.txt` 可以用来核对下载的文件是否完整。
+
+也可以从源码自己构建（见[关于构建](#关于构建)）：便携版位于 `dist\StillMark\StillMark.exe`，安装包位于 `dist\installer\StillMark-<版本>-setup.exe`。
 
 - 支持 Windows 10 和 Windows 11（64 位）。
 - 便携版，无需安装，也不需要预先安装 .NET（运行时已打包在 exe 内）。
