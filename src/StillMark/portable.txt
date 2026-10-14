@@ -1,0 +1,10 @@
+﻿Still mark portable copy
+========================
+Because this file is here, Still mark keeps its settings, recent files and recovery drafts in the "data"
+folder next to StillMark.exe, so the whole folder can be moved or copied as it is.
+(The installed version keeps them in %LOCALAPPDATA%\StillMark instead.)
+
+Still mark 便携版
+=================
+因为有这个文件，Still mark 会把设置、最近打开的文件和恢复草稿保存在 StillMark.exe 旁边的 data 文件夹里，
+整个文件夹可以直接移动或复制。（安装版则保存在 %LOCALAPPDATA%\StillMark。）

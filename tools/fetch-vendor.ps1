@@ -1,9 +1,9 @@
-# Re-downloads the offline web assets bundled in src\InkPage\web\vendor (only needed to update them).
+# Re-downloads the offline web assets bundled in src\StillMark\web\vendor (only needed to update them).
 # highlight.js (BSD-3-Clause) and JetBrains Mono (OFL-1.1) come from the public npm registry.
 $ErrorActionPreference = "Stop"
 $root = (Resolve-Path "$PSScriptRoot\..").Path
 $cache = Join-Path $root "tools\vendor-cache"
-$web = Join-Path $root "src\InkPage\web\vendor"
+$web = Join-Path $root "src\StillMark\web\vendor"
 New-Item -ItemType Directory -Force $cache, "$web\hljs", "$web\fonts" | Out-Null
 
 function Get-Package([string]$name, [string]$version) {

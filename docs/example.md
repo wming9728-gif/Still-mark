@@ -1,25 +1,9 @@
-# Welcome to InkPage
+# Welcome to Still mark
 
-InkPage is a quiet place to **read** and *write* Markdown on Windows — offline, and with your files left exactly as they were.
+A quiet place to **read** and *write* Markdown on Windows — offline, with your files left exactly as they were: no ~~silent reformatting~~.[^1]
 
-> Tip: `Ctrl+1` reads, `Ctrl+2` splits the window into source and preview, `Ctrl+3` edits the source only.
-
-## What it keeps safe
-
-| When you | InkPage keeps |
-| --- | --- |
-| open a file and close it again | the file untouched: same bytes, same timestamp |
-| edit one paragraph | every other line exactly as it was |
-| save a GB18030 or UTF-16 file | its encoding, BOM and line endings |
-
-## A little code
-
-```python
-def reading_time(words: int, per_minute: int = 230) -> str:
-    """Rough reading time for a note."""
-    minutes = max(1, round(words / per_minute))
-    return f"{minutes} min read"
-```
+> [!TIP]
+> `Ctrl+1` read · `Ctrl+2` split · `Ctrl+3` edit
 
 ## Today
 
@@ -27,6 +11,32 @@ def reading_time(words: int, per_minute: int = 230) -> str:
 - [x] Check the tables in split view
 - [ ] Try the dark theme
 
+## What it keeps safe
+
+| When you | Still mark keeps |
+| --- | --- |
+| open and close a file | same bytes, same timestamp |
+| save a GB18030 file | encoding, BOM, line endings |
+
+## A little code
+
+```python
+def read_time(words: int, wpm=230) -> str:
+    minutes = max(1, round(words / wpm))
+    return f"{minutes} min read"
+```
+
+## Writing faster
+
+1. Select some text and press `Ctrl+B` for **bold** or `Ctrl+I` for *italic*.
+2. Press `Enter` at the end of a list item to start the next one:
+   - bullets, numbers, tasks and quotes all continue;
+   - press `Enter` on an empty item to end the list.
+3. `Ctrl+F` finds, `Ctrl+H` replaces.
+
+> [!NOTE]
+> Unsaved work goes to a recovery draft every 8 seconds.
+
 ---
 
-More syntax: [CommonMark help](https://commonmark.org/help/).
+[^1]: Including line endings, encoding and BOM. More syntax: [CommonMark help](https://commonmark.org/help/).

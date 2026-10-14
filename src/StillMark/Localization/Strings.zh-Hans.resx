@@ -1,0 +1,661 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cmd_Menu" xml:space="preserve">
+    <value>菜单</value>
+  </data>
+  <data name="Tip_Menu" xml:space="preserve">
+    <value>菜单 (Alt)</value>
+  </data>
+  <data name="Cmd_New" xml:space="preserve">
+    <value>新建</value>
+  </data>
+  <data name="Tip_New" xml:space="preserve">
+    <value>新建 (Ctrl+N)</value>
+  </data>
+  <data name="Cmd_Open" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="Tip_Open" xml:space="preserve">
+    <value>打开 (Ctrl+O)</value>
+  </data>
+  <data name="Cmd_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Tip_Save" xml:space="preserve">
+    <value>保存 (Ctrl+S)</value>
+  </data>
+  <data name="Tip_Unsaved" xml:space="preserve">
+    <value>有未保存的更改</value>
+  </data>
+  <data name="Badge_ReadOnly" xml:space="preserve">
+    <value>只读</value>
+  </data>
+  <data name="Mode_Read" xml:space="preserve">
+    <value>阅读</value>
+  </data>
+  <data name="Tip_ModeRead" xml:space="preserve">
+    <value>阅读模式 (Ctrl+1)</value>
+  </data>
+  <data name="Mode_Split" xml:space="preserve">
+    <value>分栏</value>
+  </data>
+  <data name="Tip_ModeSplit" xml:space="preserve">
+    <value>编辑 + 实时预览 (Ctrl+2)</value>
+  </data>
+  <data name="Mode_Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="Tip_ModeEdit" xml:space="preserve">
+    <value>仅编辑源文件 (Ctrl+3)</value>
+  </data>
+  <data name="Cmd_Outline" xml:space="preserve">
+    <value>目录</value>
+  </data>
+  <data name="Tip_Outline" xml:space="preserve">
+    <value>目录 (Ctrl+Shift+O)</value>
+  </data>
+  <data name="Cmd_Find" xml:space="preserve">
+    <value>查找</value>
+  </data>
+  <data name="Tip_Find" xml:space="preserve">
+    <value>查找 (Ctrl+F)</value>
+  </data>
+  <data name="Cmd_Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="Name_CloseInfo" xml:space="preserve">
+    <value>关闭提示</value>
+  </data>
+  <data name="Outline_Empty" xml:space="preserve">
+    <value>文档中没有标题</value>
+  </data>
+  <data name="Tip_NewDocNotSaved" xml:space="preserve">
+    <value>尚未保存的新文档</value>
+  </data>
+  <data name="Find_ToggleReplace" xml:space="preserve">
+    <value>切换替换</value>
+  </data>
+  <data name="Tip_ToggleReplace" xml:space="preserve">
+    <value>切换替换 (Ctrl+H)</value>
+  </data>
+  <data name="Find_Query" xml:space="preserve">
+    <value>查找内容</value>
+  </data>
+  <data name="Find_MatchCase" xml:space="preserve">
+    <value>区分大小写</value>
+  </data>
+  <data name="Find_Prev" xml:space="preserve">
+    <value>上一个</value>
+  </data>
+  <data name="Tip_FindPrev" xml:space="preserve">
+    <value>上一个 (Shift+Enter)</value>
+  </data>
+  <data name="Find_Next" xml:space="preserve">
+    <value>下一个</value>
+  </data>
+  <data name="Tip_FindNext" xml:space="preserve">
+    <value>下一个 (Enter)</value>
+  </data>
+  <data name="Find_Close" xml:space="preserve">
+    <value>关闭查找</value>
+  </data>
+  <data name="Tip_FindClose" xml:space="preserve">
+    <value>关闭 (Esc)</value>
+  </data>
+  <data name="Find_ReplaceWith" xml:space="preserve">
+    <value>替换为</value>
+  </data>
+  <data name="Find_Replace" xml:space="preserve">
+    <value>替换</value>
+  </data>
+  <data name="Find_ReplaceAll" xml:space="preserve">
+    <value>全部替换</value>
+  </data>
+  <data name="Find_NoResults" xml:space="preserve">
+    <value>无结果</value>
+  </data>
+  <data name="Status_Replaced" xml:space="preserve">
+    <value>已替换 {0} 处</value>
+  </data>
+  <data name="Fmt_Bold" xml:space="preserve">
+    <value>粗体</value>
+  </data>
+  <data name="Tip_Bold" xml:space="preserve">
+    <value>粗体 (Ctrl+B)</value>
+  </data>
+  <data name="Fmt_Italic" xml:space="preserve">
+    <value>斜体</value>
+  </data>
+  <data name="Tip_Italic" xml:space="preserve">
+    <value>斜体 (Ctrl+I)</value>
+  </data>
+  <data name="Fmt_Strike" xml:space="preserve">
+    <value>删除线</value>
+  </data>
+  <data name="Tip_Strike" xml:space="preserve">
+    <value>删除线 (Ctrl+Shift+X)</value>
+  </data>
+  <data name="Fmt_Code" xml:space="preserve">
+    <value>行内代码</value>
+  </data>
+  <data name="Tip_Code" xml:space="preserve">
+    <value>行内代码 (Ctrl+`)</value>
+  </data>
+  <data name="Fmt_Heading" xml:space="preserve">
+    <value>标题级别</value>
+  </data>
+  <data name="Tip_Heading" xml:space="preserve">
+    <value>标题级别 (Ctrl+Alt+1…6)</value>
+  </data>
+  <data name="Fmt_HeadingN" xml:space="preserve">
+    <value>{0} 级标题</value>
+  </data>
+  <data name="Fmt_Bullet" xml:space="preserve">
+    <value>无序列表</value>
+  </data>
+  <data name="Fmt_Number" xml:space="preserve">
+    <value>有序列表</value>
+  </data>
+  <data name="Fmt_Task" xml:space="preserve">
+    <value>任务清单</value>
+  </data>
+  <data name="Fmt_Quote" xml:space="preserve">
+    <value>引用</value>
+  </data>
+  <data name="Fmt_CodeBlock" xml:space="preserve">
+    <value>代码块</value>
+  </data>
+  <data name="Tip_CodeBlock" xml:space="preserve">
+    <value>代码块 (Ctrl+Shift+K)</value>
+  </data>
+  <data name="Fmt_Link" xml:space="preserve">
+    <value>链接</value>
+  </data>
+  <data name="Tip_Link" xml:space="preserve">
+    <value>链接 (Ctrl+K)</value>
+  </data>
+  <data name="Fmt_Image" xml:space="preserve">
+    <value>插入图片</value>
+  </data>
+  <data name="Tip_Image" xml:space="preserve">
+    <value>插入图片…</value>
+  </data>
+  <data name="Fmt_Table" xml:space="preserve">
+    <value>插入表格</value>
+  </data>
+  <data name="Fmt_Rule" xml:space="preserve">
+    <value>分隔线</value>
+  </data>
+  <data name="Name_Editor" xml:space="preserve">
+    <value>Markdown 编辑器</value>
+  </data>
+  <data name="Ph_Bold" xml:space="preserve">
+    <value>粗体</value>
+  </data>
+  <data name="Ph_Italic" xml:space="preserve">
+    <value>斜体</value>
+  </data>
+  <data name="Ph_Strike" xml:space="preserve">
+    <value>删除线</value>
+  </data>
+  <data name="Ph_LinkText" xml:space="preserve">
+    <value>链接文字</value>
+  </data>
+  <data name="Ph_ImageAlt" xml:space="preserve">
+    <value>图片说明</value>
+  </data>
+  <data name="Ph_TableColumn" xml:space="preserve">
+    <value>列 {0}</value>
+  </data>
+  <data name="Status_ReadOnlyDoc" xml:space="preserve">
+    <value>当前文档为只读</value>
+  </data>
+  <data name="Status_Caret" xml:space="preserve">
+    <value>第 {0} 行，第 {1} 列</value>
+  </data>
+  <data name="Status_Selected" xml:space="preserve">
+    <value>（已选 {0} 个字符）</value>
+  </data>
+  <data name="Status_Words" xml:space="preserve">
+    <value>{0:N0} 字</value>
+  </data>
+  <data name="Tip_Zoom" xml:space="preserve">
+    <value>缩放 (Ctrl+= / Ctrl+- / Ctrl+0)</value>
+  </data>
+  <data name="Tip_Eol" xml:space="preserve">
+    <value>换行符（可在 菜单 → 文件格式 中转换）</value>
+  </data>
+  <data name="Tip_Encoding" xml:space="preserve">
+    <value>文件编码，保存时保持不变</value>
+  </data>
+  <data name="Filter_Markdown" xml:space="preserve">
+    <value>Markdown 文件</value>
+  </data>
+  <data name="Filter_Text" xml:space="preserve">
+    <value>文本文件</value>
+  </data>
+  <data name="Filter_Images" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="Filter_Html" xml:space="preserve">
+    <value>HTML 文件</value>
+  </data>
+  <data name="Filter_All" xml:space="preserve">
+    <value>所有文件</value>
+  </data>
+  <data name="Dlg_OpenTitle" xml:space="preserve">
+    <value>打开 Markdown 文件</value>
+  </data>
+  <data name="Dlg_SaveAs" xml:space="preserve">
+    <value>另存为</value>
+  </data>
+  <data name="Menu_NewWindow" xml:space="preserve">
+    <value>新建窗口</value>
+  </data>
+  <data name="Menu_Open" xml:space="preserve">
+    <value>打开…</value>
+  </data>
+  <data name="Menu_Recent" xml:space="preserve">
+    <value>最近打开</value>
+  </data>
+  <data name="Menu_ClearRecent" xml:space="preserve">
+    <value>清除列表</value>
+  </data>
+  <data name="Menu_SaveAs" xml:space="preserve">
+    <value>另存为…</value>
+  </data>
+  <data name="Menu_Reload" xml:space="preserve">
+    <value>从磁盘重新载入</value>
+  </data>
+  <data name="Menu_Reveal" xml:space="preserve">
+    <value>在资源管理器中显示</value>
+  </data>
+  <data name="Menu_Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="Menu_Undo" xml:space="preserve">
+    <value>撤销</value>
+  </data>
+  <data name="Menu_Redo" xml:space="preserve">
+    <value>重做</value>
+  </data>
+  <data name="Menu_Cut" xml:space="preserve">
+    <value>剪切</value>
+  </data>
+  <data name="Menu_Copy" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Menu_Paste" xml:space="preserve">
+    <value>粘贴</value>
+  </data>
+  <data name="Menu_SelectAll" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="Menu_FindMore" xml:space="preserve">
+    <value>查找…</value>
+  </data>
+  <data name="Menu_ReplaceMore" xml:space="preserve">
+    <value>替换…</value>
+  </data>
+  <data name="Menu_View" xml:space="preserve">
+    <value>视图</value>
+  </data>
+  <data name="Menu_ViewSplit" xml:space="preserve">
+    <value>分栏（编辑 + 预览）</value>
+  </data>
+  <data name="Menu_WordWrap" xml:space="preserve">
+    <value>自动换行</value>
+  </data>
+  <data name="Menu_LineNumbers" xml:space="preserve">
+    <value>行号</value>
+  </data>
+  <data name="Menu_Whitespace" xml:space="preserve">
+    <value>显示空白字符</value>
+  </data>
+  <data name="Menu_CodeLigatures" xml:space="preserve">
+    <value>预览中的代码连字</value>
+  </data>
+  <data name="Menu_ZoomIn" xml:space="preserve">
+    <value>放大</value>
+  </data>
+  <data name="Menu_ZoomOut" xml:space="preserve">
+    <value>缩小</value>
+  </data>
+  <data name="Menu_ZoomReset" xml:space="preserve">
+    <value>重置缩放</value>
+  </data>
+  <data name="Menu_ThemeSystem" xml:space="preserve">
+    <value>跟随系统主题</value>
+  </data>
+  <data name="Menu_ThemeLight" xml:space="preserve">
+    <value>浅色主题</value>
+  </data>
+  <data name="Menu_ThemeDark" xml:space="preserve">
+    <value>深色主题</value>
+  </data>
+  <data name="Theme_ToDark" xml:space="preserve">
+    <value>切换到深色主题</value>
+  </data>
+  <data name="Theme_ToLight" xml:space="preserve">
+    <value>切换到浅色主题</value>
+  </data>
+  <data name="Menu_Language" xml:space="preserve">
+    <value>语言 / Language</value>
+  </data>
+  <data name="Lang_System" xml:space="preserve">
+    <value>跟随系统语言</value>
+  </data>
+  <data name="Lang_English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Lang_ZhHans" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
+  <data name="Menu_FileFormat" xml:space="preserve">
+    <value>文件格式</value>
+  </data>
+  <data name="Menu_CurrentEncoding" xml:space="preserve">
+    <value>当前编码：{0}</value>
+  </data>
+  <data name="Menu_SaveUtf8" xml:space="preserve">
+    <value>保存为 UTF-8</value>
+  </data>
+  <data name="Menu_SaveUtf8Bom" xml:space="preserve">
+    <value>保存为 UTF-8 BOM</value>
+  </data>
+  <data name="Menu_CurrentEol" xml:space="preserve">
+    <value>当前换行符：{0}</value>
+  </data>
+  <data name="Menu_ToLf" xml:space="preserve">
+    <value>统一为 LF</value>
+  </data>
+  <data name="Menu_ToCrlf" xml:space="preserve">
+    <value>统一为 CRLF</value>
+  </data>
+  <data name="Menu_ExportHtml" xml:space="preserve">
+    <value>导出为 HTML…</value>
+  </data>
+  <data name="Menu_Print" xml:space="preserve">
+    <value>打印…</value>
+  </data>
+  <data name="Menu_About" xml:space="preserve">
+    <value>关于 Still mark</value>
+  </data>
+  <data name="Menu_Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="About_Title" xml:space="preserve">
+    <value>Still mark 墨 {0}</value>
+  </data>
+  <data name="About_Body" xml:space="preserve">
+    <value>本地 Markdown 阅读与编辑器。完全离线工作，不需要账户或网络。
+
+文件安全：未修改的文件不会被写入；保存时保留原编码、BOM 与换行符；写入采用“临时文件 + 校验 + 原子替换”；外部修改会被检测并提示；未保存内容定期写入恢复草稿。</value>
+  </data>
+  <data name="About_Details" xml:space="preserve">
+    <value>组件：.NET {0} · WPF · AvalonEdit · Markdig · Microsoft Edge WebView2 · highlight.js · JetBrains Mono (OFL)
+许可证：MIT · 第三方许可证：见程序目录中的 THIRD-PARTY-NOTICES.txt
+数据目录：{1}</value>
+  </data>
+  <data name="Btn_OK" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="Btn_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Btn_DontSave" xml:space="preserve">
+    <value>不保存</value>
+  </data>
+  <data name="Btn_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Btn_SaveAs" xml:space="preserve">
+    <value>另存为…</value>
+  </data>
+  <data name="Btn_RecreateSave" xml:space="preserve">
+    <value>重新创建并保存</value>
+  </data>
+  <data name="Btn_Overwrite" xml:space="preserve">
+    <value>覆盖磁盘上的版本</value>
+  </data>
+  <data name="Btn_Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="Btn_Reload" xml:space="preserve">
+    <value>重新载入</value>
+  </data>
+  <data name="Btn_LoadDisk" xml:space="preserve">
+    <value>载入磁盘版本（放弃我的更改）</value>
+  </data>
+  <data name="Btn_KeepMine" xml:space="preserve">
+    <value>保留我的版本</value>
+  </data>
+  <data name="Btn_EditAnyway" xml:space="preserve">
+    <value>仍要编辑（只能另存为新文件）</value>
+  </data>
+  <data name="Btn_Recover" xml:space="preserve">
+    <value>恢复</value>
+  </data>
+  <data name="Btn_DiscardDrafts" xml:space="preserve">
+    <value>丢弃草稿</value>
+  </data>
+  <data name="Btn_Later" xml:space="preserve">
+    <value>稍后再说</value>
+  </data>
+  <data name="Err_IsFolder" xml:space="preserve">
+    <value>这是一个文件夹，不是文件。</value>
+  </data>
+  <data name="Dlg_FileNotFound" xml:space="preserve">
+    <value>文件不存在</value>
+  </data>
+  <data name="Dlg_NoReadPermission" xml:space="preserve">
+    <value>没有权限读取该文件</value>
+  </data>
+  <data name="Dlg_CantOpen" xml:space="preserve">
+    <value>无法打开文件</value>
+  </data>
+  <data name="Info_CantEditSafely" xml:space="preserve">
+    <value>无法安全编辑此文件：{0}。已以只读方式打开，原文件不会被改动。</value>
+  </data>
+  <data name="Info_ReadOnlyOnDisk" xml:space="preserve">
+    <value>此文件在磁盘上是只读的。可以编辑，但保存时需要“另存为”到其他位置。</value>
+  </data>
+  <data name="Status_Opened" xml:space="preserve">
+    <value>已打开 {0}</value>
+  </data>
+  <data name="Err_Unauthorized" xml:space="preserve">
+    <value>没有写入该位置的权限（文件可能是只读的，或位于受保护的文件夹）。</value>
+  </data>
+  <data name="Err_DirNotFound" xml:space="preserve">
+    <value>目标文件夹不存在。</value>
+  </data>
+  <data name="Err_PathTooLong" xml:space="preserve">
+    <value>文件路径过长。</value>
+  </data>
+  <data name="Err_NotFound" xml:space="preserve">
+    <value>文件不存在。</value>
+  </data>
+  <data name="Err_InUse" xml:space="preserve">
+    <value>文件正被其他程序占用，暂时无法写入。请关闭占用它的程序后重试。</value>
+  </data>
+  <data name="Err_DiskFull" xml:space="preserve">
+    <value>磁盘空间不足。</value>
+  </data>
+  <data name="Dlg_SaveChanges" xml:space="preserve">
+    <value>是否保存对“{0}”的更改？</value>
+  </data>
+  <data name="Dlg_SaveChanges_Msg" xml:space="preserve">
+    <value>如果不保存，你的更改将会丢失。</value>
+  </data>
+  <data name="Dlg_CantSaveInPlace" xml:space="preserve">
+    <value>无法保存到原文件</value>
+  </data>
+  <data name="Dlg_CantSaveInPlace_Msg" xml:space="preserve">
+    <value>{0}要另存为新文件吗？</value>
+  </data>
+  <data name="Save_ReadOnlyWhy" xml:space="preserve">
+    <value>文件在磁盘上是只读的。</value>
+  </data>
+  <data name="Save_UnsafeWhy" xml:space="preserve">
+    <value>原文件无法安全覆盖：{0}。</value>
+  </data>
+  <data name="Dlg_Deleted" xml:space="preserve">
+    <value>文件已被删除或移动</value>
+  </data>
+  <data name="Dlg_Deleted_Msg" xml:space="preserve">
+    <value>“{0}”已不在原位置。要在原位置重新创建并保存吗？</value>
+  </data>
+  <data name="Dlg_Modified" xml:space="preserve">
+    <value>文件已被其他程序修改</value>
+  </data>
+  <data name="Dlg_Modified_Msg" xml:space="preserve">
+    <value>磁盘上的文件在你打开之后被修改过。保存会覆盖那些修改。</value>
+  </data>
+  <data name="Status_NoChanges" xml:space="preserve">
+    <value>内容没有变化，文件未改动</value>
+  </data>
+  <data name="Status_Saved" xml:space="preserve">
+    <value>已保存</value>
+  </data>
+  <data name="Dlg_SaveFailed" xml:space="preserve">
+    <value>保存失败</value>
+  </data>
+  <data name="Dlg_SaveFailed_Msg" xml:space="preserve">
+    <value>{0}
+原文件没有被改动，你的内容仍在编辑器中，并已写入恢复草稿。</value>
+  </data>
+  <data name="Info_LastSaveFailed" xml:space="preserve">
+    <value>上次保存失败：{0}</value>
+  </data>
+  <data name="Dlg_SaveAsFailed" xml:space="preserve">
+    <value>另存为失败</value>
+  </data>
+  <data name="Dlg_SaveAsFailed_Msg" xml:space="preserve">
+    <value>{0}
+没有写入任何文件。你的内容仍在编辑器中。</value>
+  </data>
+  <data name="Dlg_ReloadFailed" xml:space="preserve">
+    <value>重新载入失败</value>
+  </data>
+  <data name="Dlg_ReloadDiscard" xml:space="preserve">
+    <value>重新载入会丢弃未保存的更改</value>
+  </data>
+  <data name="Dlg_ReloadDiscard_Msg" xml:space="preserve">
+    <value>确定要从磁盘重新载入吗？</value>
+  </data>
+  <data name="Status_EolConverted" xml:space="preserve">
+    <value>换行符已转换，保存后生效</value>
+  </data>
+  <data name="Status_EolAlready" xml:space="preserve">
+    <value>换行符已经是该格式</value>
+  </data>
+  <data name="Status_EncodingSet" xml:space="preserve">
+    <value>保存时将使用 {0} 编码</value>
+  </data>
+  <data name="Info_ReloadedExternal" xml:space="preserve">
+    <value>文件已被其他程序修改，已自动载入最新内容。</value>
+  </data>
+  <data name="Info_ExternalConflict" xml:space="preserve">
+    <value>磁盘上的文件已被其他程序修改，而你有未保存的更改。</value>
+  </data>
+  <data name="Info_DeletedExternal" xml:space="preserve">
+    <value>文件已在磁盘上被删除或移动。内容仍在编辑器中，保存时会重新创建该文件。</value>
+  </data>
+  <data name="Draft_Untitled" xml:space="preserve">
+    <value>未命名文档</value>
+  </data>
+  <data name="Dlg_Drafts" xml:space="preserve">
+    <value>发现 {0} 份未保存的草稿</value>
+  </data>
+  <data name="Dlg_Drafts_Msg" xml:space="preserve">
+    <value>上次退出时有内容没有保存（例如程序异常退出或保存失败）。要恢复它们吗？原文件不会被自动改动。</value>
+  </data>
+  <data name="Dlg_DraftReadFailed" xml:space="preserve">
+    <value>无法读取草稿</value>
+  </data>
+  <data name="Draft_NoteChanged" xml:space="preserve">
+    <value>注意：原文件在草稿之后也被修改过，保存前请确认。</value>
+  </data>
+  <data name="Draft_NoteUnreadable" xml:space="preserve">
+    <value>原文件“{0}”无法读取，请另存为。</value>
+  </data>
+  <data name="Draft_NoteMissing" xml:space="preserve">
+    <value>原文件“{0}”已不存在，请另存为。</value>
+  </data>
+  <data name="Info_DraftRestored" xml:space="preserve">
+    <value>已恢复 {0:MM-dd HH:mm} 的未保存草稿。检查无误后请保存。{1}</value>
+  </data>
+  <data name="Preview_NoWebView2" xml:space="preserve">
+    <value>预览需要 Microsoft Edge WebView2 运行时，当前系统上没有找到它。Windows 11 默认自带；Windows 10 通常会随 Microsoft Edge 一起安装，也可以从微软官网免费下载。编辑和保存功能不受影响。</value>
+  </data>
+  <data name="Preview_Failed" xml:space="preserve">
+    <value>预览组件无法启动：{0}
+编辑和保存功能不受影响。</value>
+  </data>
+  <data name="Status_PreviewCrashed" xml:space="preserve">
+    <value>预览进程异常，已重新加载</value>
+  </data>
+  <data name="Status_RenderError" xml:space="preserve">
+    <value>渲染出错：{0}</value>
+  </data>
+  <data name="Status_LinkMissing" xml:space="preserve">
+    <value>链接指向的本地文件不存在：{0}</value>
+  </data>
+  <data name="Dlg_CantOpenLink" xml:space="preserve">
+    <value>无法打开链接</value>
+  </data>
+  <data name="Dlg_CantPrint" xml:space="preserve">
+    <value>无法打印</value>
+  </data>
+  <data name="Dlg_CantExport" xml:space="preserve">
+    <value>无法导出</value>
+  </data>
+  <data name="Dlg_PreviewNotReady" xml:space="preserve">
+    <value>预览组件尚未就绪。</value>
+  </data>
+  <data name="Status_Exported" xml:space="preserve">
+    <value>已导出 {0}</value>
+  </data>
+  <data name="Dlg_ExportFailed" xml:space="preserve">
+    <value>导出失败</value>
+  </data>
+  <data name="Ctx_CopyImage" xml:space="preserve">
+    <value>复制图片</value>
+  </data>
+  <data name="Ctx_CopyImageLink" xml:space="preserve">
+    <value>复制图片地址</value>
+  </data>
+  <data name="Ctx_CopyLink" xml:space="preserve">
+    <value>复制链接</value>
+  </data>
+  <data name="Page_EmptyTitle" xml:space="preserve">
+    <value>空白文档</value>
+  </data>
+  <data name="Page_EmptyHint" xml:space="preserve">
+    <value>切换到“编辑”或“分栏”模式开始写作</value>
+  </data>
+  <data name="Page_ImageBroken" xml:space="preserve">
+    <value>图片无法加载：</value>
+  </data>
+  <data name="Dlg_NewWindowFailed" xml:space="preserve">
+    <value>无法打开新窗口</value>
+  </data>
+  <data name="Dlg_Unexpected" xml:space="preserve">
+    <value>发生了意外错误</value>
+  </data>
+  <data name="Dlg_Unexpected_Msg" xml:space="preserve">
+    <value>Still mark 遇到一个内部错误，已尝试继续运行。你的未保存内容已写入恢复草稿，原文件未被改动。</value>
+  </data>
+</root>

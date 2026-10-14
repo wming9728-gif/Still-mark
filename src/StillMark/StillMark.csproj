@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>StillMark</AssemblyName>
+    <RootNamespace>StillMark</RootNamespace>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Version>1.0.0</Version>
+    <Product>Still mark</Product>
+    <!-- Shown as the file description, e.g. in Task Manager. -->
+    <AssemblyTitle>Still mark</AssemblyTitle>
+    <Description>Markdown reader and editor</Description>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Authors>Le inner</Authors>
+    <Copyright>Copyright © 2026 Le inner</Copyright>
+    <SatelliteResourceLanguages>zh-Hans;en</SatelliteResourceLanguages>
+    <PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
+  </PropertyGroup>
+
+  <!--
+    The test automation channel (the "automation <pipe name>" command-line option) is compiled into Debug builds only,
+    or into any build made with -p:StillMarkAutomation=true (tools\publish.ps1 -WithAutomation). Release builds,
+    including the official package, do not contain it at all.
+  -->
+  <PropertyGroup>
+    <StillMarkAutomation Condition="'$(StillMarkAutomation)' == '' and '$(Configuration)' == 'Debug'">true</StillMarkAutomation>
+    <DefineConstants Condition="'$(StillMarkAutomation)' == 'true'">$(DefineConstants);AUTOMATION</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(StillMarkAutomation)' != 'true'">
+    <Compile Remove="MainWindow.Automation.cs;Services\AutomationServer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StillMark.Core\StillMark.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.3.1.120" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4258.31" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\app.ico" />
+    <Content Include="web\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <!-- Builds run portable (data next to the exe). Published output gets the marker only from tools\publish.ps1,
+         so the installer's files carry none and the installed program uses %LOCALAPPDATA%\StillMark. -->
+    <None Update="portable.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Never" />
+    <!-- License texts sit next to the exe in every package (portable and installer). -->
+    <None Include="..\..\LICENSE" Link="LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+    <None Include="..\..\THIRD-PARTY-NOTICES.txt" Link="THIRD-PARTY-NOTICES.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+
+</Project>

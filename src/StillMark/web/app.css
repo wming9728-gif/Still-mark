@@ -1,0 +1,158 @@
+/*
+ * StillMark preview/reading sheet: clean sans layout (16px / 1.75) with GitHub-style tables and code blocks,
+ * light and dark palettes. The sheet grows with the window (80% of it, 1040–1360px; text column up to
+ * 1180px), so a maximised window is not mostly margin.
+ */
+@font-face { font-family: "JetBrains Mono"; font-weight: 400; font-display: swap; src: url("https://app.stillmark/vendor/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 500; font-display: swap; src: url("https://app.stillmark/vendor/fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2"); }
+
+:root {
+  --page: #eef0f2;
+  --chrome-line: #d6dadf;
+  --sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --mono: "JetBrains Mono", "Cascadia Mono", Consolas, "Noto Sans SC", "Microsoft YaHei", monospace;
+
+  --d-bg: #fff; --d-fg: #2b2f36; --d-mute: #6b7280; --d-line: #d1d9e0; --d-accent: #2f6fde;
+  --d-code-bg: #f6f8fa; --d-code-fg: #1f2328;
+  --d-kw: #cf222e; --d-cm: #59636e; --d-num: #0550ae; --d-fn: #8250df; --d-str: #0a3069; --d-tag: #116329; --d-var: #953800;
+  --d-quote-bg: transparent; --d-quote-bar: #d0d4da; --d-th: #f6f8fa;
+  --find: #fde68a; --find-cur: #f59e0b;
+  --scroll: #c4c9cf;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --page: #15171b;
+  --chrome-line: #2c3036;
+  --d-bg: #1c1f24; --d-fg: #d9dde3; --d-mute: #959ca6; --d-line: #3d444d; --d-accent: #6ea4ff;
+  --d-code-bg: #252a31; --d-code-fg: #e6edf3;
+  --d-kw: #ff7b72; --d-cm: #9198a1; --d-num: #79c0ff; --d-fn: #d2a8ff; --d-str: #a5d6ff; --d-tag: #7ee787; --d-var: #ffa657;
+  --d-quote-bar: #3d434b; --d-th: #23272d;
+  --find: #6b5714; --find-cur: #b7791f;
+  --scroll: #3a3f46;
+  color-scheme: dark;
+}
+
+html, body { margin: 0; background: var(--page); }
+body { font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+
+/* Page: the sheet floats on the chrome background and widens with the window. */
+.page { max-width: clamp(1040px, 80vw, 1360px); margin: 0 auto; padding: 20px 16px 48px; box-sizing: border-box; min-height: 100vh; }
+body.compact .page { padding: 12px 12px 32px; }
+/* The split preview is half a window: the reading sheet's 6vw side padding would eat ~15% of it. */
+body.compact .doc { padding-inline: clamp(20px, 3vw, 32px); }
+
+/* ---------- the sheet ---------- */
+.doc {
+  background: var(--d-bg); color: var(--d-fg);
+  border: 1px solid var(--chrome-line); border-radius: 12px;
+  padding-block: clamp(24px, 5vw, 56px); padding-inline: clamp(20px, 6vw, 72px);
+  min-width: 0; overflow-wrap: anywhere;
+  font-family: var(--sans); font-size: 16px; line-height: 1.75;
+}
+.doc .inner { max-width: 1180px; margin: 0 auto; }
+.doc .inner > :first-child { margin-top: 0 !important; }
+.doc .inner > :last-child { margin-bottom: 0 !important; }
+
+.doc h1, .doc h2, .doc h3, .doc h4, .doc h5, .doc h6 { text-wrap: balance; scroll-margin-top: 16px; }
+.doc h1 { font-size: 2em; line-height: 1.3; margin: 1.4em 0 .8em; font-weight: 700; }
+.doc h2 { font-size: 1.4em; line-height: 1.4; margin: 1.8em 0 .5em; font-weight: 700; }
+.doc h3 { font-size: 1.15em; line-height: 1.5; margin: 1.5em 0 .4em; font-weight: 600; }
+.doc h4 { font-size: 1em; margin: 1.4em 0 .4em; font-weight: 600; }
+.doc h5 { font-size: .92em; margin: 1.3em 0 .4em; font-weight: 600; }
+.doc h6 { font-size: .88em; margin: 1.3em 0 .4em; font-weight: 600; color: var(--d-mute); }
+
+.doc p { margin: 0 0 1em; }
+.doc a { color: var(--d-accent); text-underline-offset: 3px; }
+.doc strong { font-weight: 700; }
+.doc del { color: var(--d-mute); }
+.doc mark { background: var(--find); color: inherit; border-radius: 2px; }
+.doc kbd { font-family: var(--mono); font-size: .82em; padding: .1em .4em; border: 1px solid var(--d-line); border-bottom-width: 2px; border-radius: 4px; background: var(--d-code-bg); }
+.doc sup, .doc sub { line-height: 0; }
+
+/* code */
+/* JetBrains Mono draws "<=", "!=", "->" … as single signs (contextual alternates). Code should read exactly as
+   written, so that is off unless the user turns it on (View → Code Ligatures in Preview). */
+.doc code, .doc kbd { font-variant-ligatures: none; font-feature-settings: "calt" 0, "liga" 0; }
+body.ligatures .doc code { font-variant-ligatures: normal; font-feature-settings: normal; }
+.doc code { font-family: var(--mono); font-size: .88em; background: var(--d-code-bg); color: var(--d-code-fg); padding: .12em .38em; border-radius: 4px; }
+.doc pre { background: var(--d-code-bg); color: var(--d-code-fg); border-radius: 6px; padding: 14px 16px; overflow-x: auto; line-height: 1.6; font-size: 13.5px; margin: 0 0 1em; tab-size: 4; }
+.doc pre code { background: none; padding: 0; font-size: inherit; border-radius: 0; white-space: pre; overflow-wrap: normal; word-break: normal; }
+.doc .hljs-keyword, .doc .hljs-type, .doc .hljs-literal, .doc .hljs-selector-tag, .doc .hljs-doctag, .doc .hljs-template-tag { color: var(--d-kw); }
+.doc .hljs-comment, .doc .hljs-quote { color: var(--d-cm); font-style: italic; }
+.doc .hljs-number, .doc .hljs-symbol, .doc .hljs-meta, .doc .hljs-attr, .doc .hljs-attribute, .doc .hljs-property, .doc .hljs-bullet, .doc .hljs-selector-id, .doc .hljs-selector-class, .doc .hljs-variable.constant_, .doc .hljs-link { color: var(--d-num); }
+.doc .hljs-title, .doc .hljs-title.function_, .doc .hljs-title.class_, .doc .hljs-built_in, .doc .hljs-section { color: var(--d-fn); }
+.doc .hljs-string, .doc .hljs-regexp, .doc .hljs-meta .hljs-string, .doc .hljs-char { color: var(--d-str); }
+.doc .hljs-name, .doc .hljs-selector-pseudo { color: var(--d-tag); }
+.doc .hljs-variable, .doc .hljs-template-variable, .doc .hljs-subst { color: var(--d-var); }
+.doc .hljs-meta .hljs-keyword { color: var(--d-kw); }
+.doc .hljs-section, .doc .hljs-strong { font-weight: 600; }
+.doc .hljs-emphasis { font-style: italic; }
+.doc .hljs-addition { color: var(--d-tag); background: color-mix(in srgb, var(--d-tag) 12%, transparent); }
+.doc .hljs-deletion { color: var(--d-kw); background: color-mix(in srgb, var(--d-kw) 12%, transparent); }
+
+/* tables (GitHub style) */
+.doc .tbl { overflow-x: auto; margin: 0 0 1em; }
+.doc table { border-collapse: collapse; width: 100%; font-size: .94em; }
+/* Cells: `overflow-wrap: anywhere` (inherited from .doc) lets a CJK column shrink to one character, and
+   unbreakable code would then crowd it out and push the table past the sheet. Give every column room for
+   at least 4 characters, keep words whole in plain text, and let long code (paths, identifiers) wrap. */
+.doc th, .doc td { text-align: left; padding: 6px 13px; border: 1px solid var(--d-line); vertical-align: top; min-width: 4em; overflow-wrap: break-word; }
+.doc th { background: var(--d-th); font-weight: 600; }
+.doc tr:nth-child(even) td { background: var(--d-code-bg); }
+.doc td code, .doc th code { overflow-wrap: anywhere; }
+
+/* quotes, rules */
+.doc blockquote { margin: 0 0 1em; padding: 8px 16px; border-left: 3px solid var(--d-quote-bar); background: var(--d-quote-bg); color: var(--d-mute); }
+.doc blockquote > :last-child { margin-bottom: 0; }
+.doc blockquote p { margin: 0 0 .6em; }
+.doc blockquote p:last-child { margin: 0; }
+.doc hr { border: 0; border-top: 1px solid var(--d-line); margin-block: 2em; }
+
+/* lists */
+.doc ul, .doc ol { padding-left: 1.8em; margin: 0 0 1em; }
+.doc li { margin: .2em 0; }
+.doc li > ul, .doc li > ol { margin: .2em 0 0; }
+.doc li > p { margin: 0 0 .5em; }
+.doc ul.contains-task-list, .doc ul:has(> li.task-list-item) { padding-left: 1.8em; }
+.doc li.task-list-item { list-style: none; }
+.doc li.task-list-item > input[type="checkbox"], .doc li.task-list-item > p > input[type="checkbox"] {
+  accent-color: var(--d-accent); margin: 0 .55em 0 -1.5em; transform: translateY(1px); width: 1em; height: 1em; vertical-align: -0.1em;
+}
+
+/* images */
+.doc img { max-width: 100%; height: auto; border-radius: 4px; }
+.doc .img-broken {
+  display: inline-flex; align-items: center; gap: .5em; max-width: 100%; box-sizing: border-box;
+  padding: .4em .8em; border: 1px dashed var(--d-line); border-radius: 6px; color: var(--d-mute); font-size: .88em; overflow-wrap: anywhere;
+}
+.doc .img-broken::before { content: "🖼"; filter: grayscale(1); opacity: .7; }
+
+/* footnotes, alerts, misc. */
+.doc .footnotes { font-size: .9em; color: var(--d-mute); }
+.doc .footnotes hr { margin-block: 2em 1em; }
+.doc .markdown-alert { margin: 0 0 1em; padding: 8px 16px; border-left: 4px solid var(--alert, var(--d-quote-bar)); }
+.doc .markdown-alert > :last-child { margin-bottom: 0; }
+.doc .markdown-alert-title { font-weight: 600; color: var(--alert); margin-bottom: .3em; }
+.doc .markdown-alert-note { --alert: #0969da; } .doc .markdown-alert-tip { --alert: #1a7f37; }
+.doc .markdown-alert-important { --alert: #8250df; } .doc .markdown-alert-warning { --alert: #9a6700; } .doc .markdown-alert-caution { --alert: #cf222e; }
+:root[data-theme="dark"] .doc .markdown-alert-note { --alert: #4493f8; } :root[data-theme="dark"] .doc .markdown-alert-tip { --alert: #3fb950; }
+:root[data-theme="dark"] .doc .markdown-alert-important { --alert: #ab7df8; } :root[data-theme="dark"] .doc .markdown-alert-warning { --alert: #d29922; } :root[data-theme="dark"] .doc .markdown-alert-caution { --alert: #f85149; }
+.doc details { margin: 0 0 1em; } .doc summary { cursor: pointer; }
+
+.doc .empty { color: var(--d-mute); text-align: center; padding: 4em 0; line-height: 2; }
+.doc .empty b { color: var(--d-fg); font-weight: 600; }
+
+::selection { background: color-mix(in srgb, var(--d-accent) 28%, transparent); }
+::highlight(ink-find) { background-color: var(--find); }
+::highlight(ink-find-current) { background-color: var(--find-cur); color: #111; }
+
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-thumb { background: var(--scroll); border-radius: 6px; border: 3px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background-color: var(--d-mute); }
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: transparent; }
+
+@media print {
+  html, body { background: #fff; }
+  .page { padding: 0; max-width: none; }
+  .doc { border: 0; padding: 0; }
+}

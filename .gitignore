@@ -4,4 +4,4 @@ obj/
 .vs/
 tools/vendor-cache/
 dist/
-src/InkPage/data/
+src/StillMark/data/

@@ -1,0 +1,215 @@
+<Window x:Class="StillMark.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:StillMark.Localization"
+        xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        Title="Still mark" Width="1280" Height="820" MinWidth="640" MinHeight="420"
+        Background="{DynamicResource Brush.Page}" Foreground="{DynamicResource Brush.Fg}"
+        FontFamily="{StaticResource Font.Ui}" FontSize="13"
+        UseLayoutRounding="True" AllowDrop="True"
+        Icon="pack://application:,,,/Assets/app.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="52"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="28"/>
+        </Grid.RowDefinitions>
+
+        <!-- ================= toolbar ================= -->
+        <Grid Grid.Row="0" Margin="10,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Button x:Name="MenuButton" Style="{StaticResource IconButton}" Content="&#xE700;" ToolTip="{l:Tr Tip_Menu}" Click="MenuButton_Click"
+                        AutomationProperties.Name="{l:Tr Cmd_Menu}"/>
+                <Border Width="1" Height="18" Margin="6,0" Background="{DynamicResource Brush.Line}"/>
+                <Button Style="{StaticResource IconButton}" Content="&#xE8A5;" ToolTip="{l:Tr Tip_New}" Click="New_Click" AutomationProperties.Name="{l:Tr Cmd_New}"/>
+                <Button Style="{StaticResource IconButton}" Content="&#xED25;" ToolTip="{l:Tr Tip_Open}" Click="Open_Click" AutomationProperties.Name="{l:Tr Cmd_Open}"/>
+                <Button x:Name="SaveButton" Style="{StaticResource IconButton}" Content="&#xE74E;" ToolTip="{l:Tr Tip_Save}" Click="Save_Click" AutomationProperties.Name="{l:Tr Cmd_Save}"/>
+                <StackPanel Orientation="Horizontal" Margin="12,0,0,0" VerticalAlignment="Center" MaxWidth="420">
+                    <TextBlock x:Name="DocTitle" Text="" FontSize="14" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"
+                               VerticalAlignment="Center" AutomationProperties.AutomationId="DocTitle"/>
+                    <Ellipse x:Name="DirtyDot" Width="7" Height="7" Margin="8,1,0,0" Fill="{DynamicResource Brush.Dirty}"
+                             VerticalAlignment="Center" Visibility="Collapsed" ToolTip="{l:Tr Tip_Unsaved}"/>
+                    <Border x:Name="ReadOnlyBadge" Margin="8,0,0,0" Padding="6,1" CornerRadius="4" VerticalAlignment="Center"
+                            BorderBrush="{DynamicResource Brush.Line}" BorderThickness="1" Visibility="Collapsed">
+                        <TextBlock Text="{l:Tr Badge_ReadOnly}" FontSize="11" Foreground="{DynamicResource Brush.Mute}"/>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+
+            <Border Grid.Column="1" Style="{StaticResource SegGroup}" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton x:Name="ModeRead" Style="{StaticResource SegButton}" GroupName="mode" Content="{l:Tr Mode_Read}" ToolTip="{l:Tr Tip_ModeRead}"
+                                 Checked="Mode_Checked" Tag="Read"/>
+                    <RadioButton x:Name="ModeSplit" Style="{StaticResource SegButton}" GroupName="mode" Content="{l:Tr Mode_Split}" ToolTip="{l:Tr Tip_ModeSplit}"
+                                 Checked="Mode_Checked" Tag="Split" Margin="3,0"/>
+                    <RadioButton x:Name="ModeEdit" Style="{StaticResource SegButton}" GroupName="mode" Content="{l:Tr Mode_Edit}" ToolTip="{l:Tr Tip_ModeEdit}"
+                                 Checked="Mode_Checked" Tag="Edit"/>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Style="{StaticResource IconButton}" Content="&#xE8FD;" ToolTip="{l:Tr Tip_Outline}" Click="ToggleOutline_Click" AutomationProperties.Name="{l:Tr Cmd_Outline}"/>
+                <Button Style="{StaticResource IconButton}" Content="&#xE721;" ToolTip="{l:Tr Tip_Find}" Click="Find_Click" AutomationProperties.Name="{l:Tr Cmd_Find}"/>
+                <!-- One click switches between light and dark; icon, tooltip and name are set by UpdateThemeButton -->
+                <Button x:Name="ThemeButton" Style="{StaticResource IconButton}" Click="ThemeButton_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- ================= info bar ================= -->
+        <Border x:Name="InfoBar" Grid.Row="1" Visibility="Collapsed" Margin="16,0,16,8" CornerRadius="8" BorderThickness="1"
+                Background="{DynamicResource Brush.Info}" BorderBrush="{DynamicResource Brush.InfoLine}" Padding="12,6">
+            <DockPanel>
+                <TextBlock x:Name="InfoIcon" DockPanel.Dock="Left" FontFamily="{StaticResource Font.Icon}" Text="&#xE7BA;" FontSize="14"
+                           VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{DynamicResource Brush.Dirty}"/>
+                <Button DockPanel.Dock="Right" Style="{StaticResource IconButton}" Width="26" Height="26" FontSize="10" Content="&#xE711;"
+                        ToolTip="{l:Tr Cmd_Close}" Click="InfoClose_Click" AutomationProperties.Name="{l:Tr Name_CloseInfo}"/>
+                <StackPanel x:Name="InfoButtons" DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center"/>
+                <TextBlock x:Name="InfoText" VerticalAlignment="Center" TextWrapping="Wrap" AutomationProperties.AutomationId="InfoText"/>
+            </DockPanel>
+        </Border>
+
+        <!-- ================= content ================= -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="OutlineColumn" Width="232"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- outline -->
+            <DockPanel x:Name="OutlinePanel" Margin="12,0,4,16">
+                <TextBlock DockPanel.Dock="Top" Text="{l:Tr Cmd_Outline}" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Mute}" Margin="10,4,0,8"/>
+                <Grid>
+                    <ListBox x:Name="OutlineList" Background="Transparent" BorderThickness="0" Padding="0"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             ItemContainerStyle="{StaticResource OutlineItem}" SelectionMode="Single"
+                             PreviewMouseLeftButtonUp="OutlineList_Click" KeyDown="OutlineList_KeyDown"
+                             AutomationProperties.Name="{l:Tr Cmd_Outline}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Text}" Margin="{Binding Indent}" FontSize="{Binding FontSize}" FontWeight="{Binding Weight}"
+                                           TextTrimming="CharacterEllipsis" ToolTip="{Binding Text}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <TextBlock x:Name="OutlineEmpty" Text="{l:Tr Outline_Empty}" Foreground="{DynamicResource Brush.Mute}" FontSize="12"
+                               Margin="10,4" Visibility="Collapsed"/>
+                </Grid>
+            </DockPanel>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- find bar (a docked row: WPF content cannot overlay the WebView2 surface) -->
+                <Border x:Name="FindBar" Grid.Row="0" Visibility="Collapsed" HorizontalAlignment="Right" Margin="16,0,16,8"
+                        Background="{DynamicResource Brush.Surface}" BorderBrush="{DynamicResource Brush.Line}" BorderThickness="1"
+                        CornerRadius="8" Padding="6">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <ToggleButton x:Name="ReplaceToggle" Style="{StaticResource OptionToggle}" FontFamily="{StaticResource Font.Icon}" FontSize="10"
+                                          Content="&#xE76C;" AutomationProperties.Name="{l:Tr Find_ToggleReplace}" ToolTip="{l:Tr Tip_ToggleReplace}" Checked="ReplaceToggle_Changed" Unchecked="ReplaceToggle_Changed"/>
+                            <TextBox x:Name="FindBox" Style="{StaticResource FieldBox}" Width="240" Margin="4,0"
+                                     TextChanged="FindBox_TextChanged" PreviewKeyDown="FindBox_PreviewKeyDown"
+                                     AutomationProperties.Name="{l:Tr Find_Query}"/>
+                            <ToggleButton x:Name="CaseToggle" Style="{StaticResource OptionToggle}" Content="Aa" AutomationProperties.Name="{l:Tr Find_MatchCase}" ToolTip="{l:Tr Find_MatchCase}"
+                                          Checked="CaseToggle_Changed" Unchecked="CaseToggle_Changed"/>
+                            <TextBlock x:Name="FindCount" Width="74" TextAlignment="Center" VerticalAlignment="Center" FontSize="12"
+                                       Foreground="{DynamicResource Brush.Mute}" Text="" AutomationProperties.AutomationId="FindCount"/>
+                            <Button Style="{StaticResource IconButton}" Width="28" Height="26" FontSize="11" Content="&#xE70E;" AutomationProperties.Name="{l:Tr Find_Prev}" ToolTip="{l:Tr Tip_FindPrev}" Click="FindPrev_Click"/>
+                            <Button Style="{StaticResource IconButton}" Width="28" Height="26" FontSize="11" Content="&#xE70D;" AutomationProperties.Name="{l:Tr Find_Next}" ToolTip="{l:Tr Tip_FindNext}" Click="FindNext_Click"/>
+                            <Button Style="{StaticResource IconButton}" Width="28" Height="26" FontSize="10" Content="&#xE711;" AutomationProperties.Name="{l:Tr Find_Close}" ToolTip="{l:Tr Tip_FindClose}" Click="FindClose_Click"/>
+                        </StackPanel>
+                        <StackPanel x:Name="ReplaceRow" Orientation="Horizontal" Margin="32,6,0,0" Visibility="Collapsed">
+                            <TextBox x:Name="ReplaceBox" Style="{StaticResource FieldBox}" Width="240" Margin="0,0,4,0" PreviewKeyDown="ReplaceBox_PreviewKeyDown"
+                                     AutomationProperties.Name="{l:Tr Find_ReplaceWith}"/>
+                            <Button Style="{StaticResource TextButton}" Content="{l:Tr Find_Replace}" MinWidth="0" Padding="10,3" Margin="2,0" Click="ReplaceOne_Click"/>
+                            <Button Style="{StaticResource TextButton}" Content="{l:Tr Find_ReplaceAll}" MinWidth="0" Padding="10,3" Margin="2,0" Click="ReplaceAll_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Grid x:Name="MainArea" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="EditorColumn" Width="*" MinWidth="0"/>
+                        <ColumnDefinition x:Name="SplitterColumn" Width="8"/>
+                        <ColumnDefinition x:Name="PreviewColumn" Width="*" MinWidth="0"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- editor -->
+                    <Border x:Name="EditorHost" Margin="16,12,0,16" Background="{DynamicResource Brush.Surface}" BorderBrush="{DynamicResource Brush.Line}"
+                            BorderThickness="1" CornerRadius="12" ClipToBounds="True">
+                        <DockPanel x:Name="EditorCard">
+                            <Border x:Name="FormatBar" DockPanel.Dock="Top" BorderBrush="{DynamicResource Brush.Line}" BorderThickness="0,0,0,1" Padding="8,5">
+                                <WrapPanel Orientation="Horizontal">
+                                    <Button Style="{StaticResource FormatButton}" AutomationProperties.Name="{l:Tr Fmt_Bold}" ToolTip="{l:Tr Tip_Bold}" Click="FmtBold_Click"><TextBlock Text="B" FontWeight="Bold"/></Button>
+                                    <Button Style="{StaticResource FormatButton}" AutomationProperties.Name="{l:Tr Fmt_Italic}" ToolTip="{l:Tr Tip_Italic}" Click="FmtItalic_Click"><TextBlock Text="I" FontStyle="Italic" FontFamily="Georgia"/></Button>
+                                    <Button Style="{StaticResource FormatButton}" AutomationProperties.Name="{l:Tr Fmt_Strike}" ToolTip="{l:Tr Tip_Strike}" Click="FmtStrike_Click"><TextBlock Text="S" TextDecorations="Strikethrough"/></Button>
+                                    <Button Style="{StaticResource FormatButton}" AutomationProperties.Name="{l:Tr Fmt_Code}" ToolTip="{l:Tr Tip_Code}" Click="FmtCode_Click"><TextBlock Text="`c`" FontFamily="{StaticResource Font.Mono}" FontSize="12"/></Button>
+                                    <Border Width="1" Height="16" Margin="3,0" Background="{DynamicResource Brush.Line}"/>
+                                    <Button x:Name="HeadingButton" Style="{StaticResource FormatButton}" AutomationProperties.Name="{l:Tr Fmt_Heading}" ToolTip="{l:Tr Tip_Heading}" Click="FmtHeading_Click">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="H" FontWeight="SemiBold"/>
+                                            <TextBlock Text="&#xE70D;" FontFamily="{StaticResource Font.Icon}" FontSize="8" Margin="3,2,0,0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Border Width="1" Height="16" Margin="3,0" Background="{DynamicResource Brush.Line}"/>
+                                    <Button Style="{StaticResource FormatButton}" AutomationProperties.Name="{l:Tr Fmt_Bullet}" ToolTip="{l:Tr Fmt_Bullet}" Click="FmtBullet_Click"><TextBlock Text="&#xE8FD;" FontFamily="{StaticResource Font.Icon}" FontSize="14"/></Button>
+                                    <Button Style="{StaticResource FormatButton}" Content="1." AutomationProperties.Name="{l:Tr Fmt_Number}" ToolTip="{l:Tr Fmt_Number}" Click="FmtNumber_Click"/>
+                                    <Button Style="{StaticResource FormatButton}" AutomationProperties.Name="{l:Tr Fmt_Task}" ToolTip="{l:Tr Fmt_Task}" Click="FmtTask_Click"><TextBlock Text="&#xE73A;" FontFamily="{StaticResource Font.Icon}" FontSize="14"/></Button>
+                                    <Button Style="{StaticResource FormatButton}" AutomationProperties.Name="{l:Tr Fmt_Quote}" ToolTip="{l:Tr Fmt_Quote}" Click="FmtQuote_Click"><TextBlock Text="&#xE9B1;" FontFamily="{StaticResource Font.Icon}" FontSize="14"/></Button>
+                                    <Border Width="1" Height="16" Margin="3,0" Background="{DynamicResource Brush.Line}"/>
+                                    <Button Style="{StaticResource FormatButton}" AutomationProperties.Name="{l:Tr Fmt_CodeBlock}" ToolTip="{l:Tr Tip_CodeBlock}" Click="FmtCodeBlock_Click"><TextBlock Text="&#xE943;" FontFamily="{StaticResource Font.Icon}" FontSize="14"/></Button>
+                                    <Button Style="{StaticResource FormatButton}" AutomationProperties.Name="{l:Tr Fmt_Link}" ToolTip="{l:Tr Tip_Link}" Click="FmtLink_Click"><TextBlock Text="&#xE71B;" FontFamily="{StaticResource Font.Icon}" FontSize="14"/></Button>
+                                    <Button Style="{StaticResource FormatButton}" AutomationProperties.Name="{l:Tr Fmt_Image}" ToolTip="{l:Tr Tip_Image}" Click="FmtImage_Click"><TextBlock Text="&#xEB9F;" FontFamily="{StaticResource Font.Icon}" FontSize="14"/></Button>
+                                    <Button Style="{StaticResource FormatButton}" AutomationProperties.Name="{l:Tr Fmt_Table}" ToolTip="{l:Tr Fmt_Table}" Click="FmtTable_Click"><TextBlock Text="&#xE80A;" FontFamily="{StaticResource Font.Icon}" FontSize="14"/></Button>
+                                    <Button Style="{StaticResource FormatButton}" AutomationProperties.Name="{l:Tr Fmt_Rule}" ToolTip="{l:Tr Fmt_Rule}" Click="FmtRule_Click"><TextBlock Text="—" FontSize="14"/></Button>
+                                </WrapPanel>
+                            </Border>
+                            <ae:TextEditor x:Name="Editor" Background="Transparent" Foreground="{DynamicResource Brush.Fg}" Margin="0,8,2,8"
+                                           FontFamily="{StaticResource Font.Mono}" FontSize="14.5" ShowLineNumbers="True" WordWrap="True"
+                                           HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                                           AutomationProperties.AutomationId="Editor" AutomationProperties.Name="{l:Tr Name_Editor}"/>
+                        </DockPanel>
+                    </Border>
+
+                    <GridSplitter x:Name="Splitter" Grid.Column="1" Width="8" HorizontalAlignment="Stretch" Style="{StaticResource SplitterStyle}"
+                                  ResizeBehavior="PreviousAndNext" DragCompleted="Splitter_DragCompleted" Margin="0,12,0,16"/>
+
+                    <!-- preview -->
+                    <Grid x:Name="PreviewHost" Grid.Column="2">
+                        <wv2:WebView2 x:Name="Preview" AutomationProperties.AutomationId="Preview"/>
+                        <Border x:Name="PreviewFallback" Visibility="Collapsed" Background="{DynamicResource Brush.Surface}" Margin="12,12,16,16"
+                                CornerRadius="12" BorderBrush="{DynamicResource Brush.Line}" BorderThickness="1">
+                            <TextBlock x:Name="PreviewFallbackText" TextWrapping="Wrap" Margin="32" Foreground="{DynamicResource Brush.Mute}" LineHeight="22"/>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!-- ================= status bar ================= -->
+        <Border Grid.Row="3" BorderBrush="{DynamicResource Brush.Line}" BorderThickness="0,1,0,0">
+            <DockPanel Margin="6,0">
+                <TextBlock x:Name="StatusCaret" Style="{StaticResource StatusText}" Text="" AutomationProperties.AutomationId="StatusCaret"/>
+                <TextBlock x:Name="StatusCount" Style="{StaticResource StatusText}" Text=""/>
+                <TextBlock x:Name="StatusMessage" Style="{StaticResource StatusText}" Text="" AutomationProperties.AutomationId="StatusMessage"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock x:Name="StatusZoom" Style="{StaticResource StatusText}" Text="100%" ToolTip="{l:Tr Tip_Zoom}"/>
+                    <TextBlock x:Name="StatusEol" Style="{StaticResource StatusText}" Text="LF" ToolTip="{l:Tr Tip_Eol}" AutomationProperties.AutomationId="StatusEol"/>
+                    <TextBlock x:Name="StatusEncoding" Style="{StaticResource StatusText}" Text="UTF-8" ToolTip="{l:Tr Tip_Encoding}" AutomationProperties.AutomationId="StatusEncoding"/>
+                    <TextBlock Style="{StaticResource StatusText}" Text="Markdown"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Window>
