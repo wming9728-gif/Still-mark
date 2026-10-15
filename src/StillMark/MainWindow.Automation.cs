@@ -154,6 +154,18 @@ public partial class MainWindow
                 Height = double.Parse(p[1]);
                 return true;
             }
+            case "screenPos":
+            {
+                // Screen position (physical pixels, middle of the line) of a document offset, for real-input demos.
+                var tv = Editor.TextArea.TextView;
+                tv.EnsureVisualLines();
+                var loc = Editor.Document.GetLocation(Math.Clamp(int.Parse(arg!), 0, Editor.Document.TextLength));
+                var vp = tv.GetVisualPosition(new ICSharpCode.AvalonEdit.TextViewPosition(loc), ICSharpCode.AvalonEdit.Rendering.VisualYPosition.LineMiddle);
+                var inView = vp - tv.ScrollOffset;
+                var screen = tv.PointToScreen(inView);
+                bool visible = inView.Y >= 0 && inView.Y <= tv.ActualHeight && inView.X >= 0 && inView.X <= tv.ActualWidth;
+                return new JsonObject { ["x"] = screen.X, ["y"] = screen.Y, ["visible"] = visible };
+            }
             case "editorTopLine":
                 return EditorTopLine();
             case "previewTopLine":
