@@ -2,7 +2,7 @@
 # Start it by hand: Actions -> Build -> Run workflow. The packages are attached to the run as an artifact for testing;
 # publishing a GitHub Release stays a manual step.
 #
-# Code signing (SignPath Foundation, see "Code signing policy" in README.md) is on when the repository variable
+# Code signing (SignPath Foundation; not in use, the application was not approved) is on when the repository variable
 # SIGNPATH_ORGANIZATION_ID is set. It also needs the variables SIGNPATH_PROJECT_SLUG and SIGNPATH_SIGNING_POLICY_SLUG
 # and the secret SIGNPATH_API_TOKEN. A signed run sends two signing requests, each waiting for approval on signpath.io:
 #   1. "app-files": StillMark.exe (portable and installer copies) and the Inno Setup uninstaller

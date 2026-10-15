@@ -92,8 +92,8 @@ StillMark/
 │     └─ Localization/      界面文字（Strings.resx 英文 / Strings.zh-Hans.resx 中文）与语言切换
 ├─ tools/                   打包、签名检查、图标生成、离线前端资源下载脚本
 ├─ installer/               安装包脚本（Inno Setup）与安装界面的简体中文翻译
-├─ .github/workflows/       build.yml：在 GitHub Actions 上构建（并签名）发布包
-├─ .signpath/               SignPath 签名配置的副本
+├─ .github/workflows/       build.yml：在 GitHub Actions 上构建发布包
+├─ .signpath/               SignPath 签名配置的副本（目前未使用）
 ├─ docs/                    示例文档与截图
 ├─ LICENSE / THIRD-PARTY-NOTICES.txt
 ├─ README.md / README.zh-CN.md
@@ -156,20 +156,13 @@ Releases 页面上的发布包由 GitHub Actions 上的 Build 工作流（[.gith
 
 排版：简洁的无衬线布局，GitHub 风格的表格与代码块，正文 16px、行高 1.75，浅色 / 深色两套配色。阅读纸张宽度随窗口变化：普通窗口下为 1040px，窗口越大越宽，最宽 1360px（正文最宽 1180px），全屏时两边会留出少量空白。
 
-## 代码签名政策
+## 代码签名
 
-Still mark 已向 SignPath Foundation 申请免费的 Windows 发布包代码签名。申请通过后，签名的发布版会附上这句说明：
+Still mark 没有代码签名：`StillMark.exe`、安装程序和卸载程序都不带数字签名。Windows 因此给出提示时的处理方法见[运行](#运行)。
 
-Free code signing provided by [SignPath.io](https://about.signpath.io), certificate by [SignPath Foundation](https://signpath.org)
+## 隐私
 
-（免费代码签名由 SignPath.io 提供，证书由 SignPath Foundation 颁发。）
-
-- 签名的文件只由 Build 工作流（[.github/workflows/build.yml](.github/workflows/build.yml)）在 GitHub 托管的构建机上用本仓库的源码构建。签名的文件是 `StillMark.exe`、卸载程序和安装程序。第三方库包含在 `StillMark.exe` 里，不单独签名。
-- 每次签名请求都需要人工批准。
-- 提交者和审阅者：[Le inner (wming9728-gif)](https://github.com/wming9728-gif)
-- 审批者：[Le inner (wming9728-gif)](https://github.com/wming9728-gif)
-
-隐私：除非用户要求，Still mark 不会向其他联网系统发送任何信息。文档用网址引用了图片或其他媒体时，预览会像浏览器一样从该网址加载。预览里的链接只有在你点击时才会用浏览器打开。预览使用 Windows 自带的 Microsoft Edge WebView2 运行时，它适用微软的隐私声明。
+除非用户要求，Still mark 不会向其他联网系统发送任何信息。文档用网址引用了图片或其他媒体时，预览会像浏览器一样从该网址加载。预览里的链接只有在你点击时才会用浏览器打开。预览使用 Windows 自带的 Microsoft Edge WebView2 运行时，它适用微软的隐私声明。
 
 ## 许可证
 

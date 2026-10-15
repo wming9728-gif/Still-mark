@@ -92,8 +92,8 @@ StillMark/
 │     └─ Localization/      UI strings (Strings.resx English / Strings.zh-Hans.resx Chinese) and language switching
 ├─ tools/                   packaging, signature check, icon generation, offline front-end asset download
 ├─ installer/               installer script (Inno Setup) and the Simplified Chinese setup translation
-├─ .github/workflows/       build.yml: builds (and signs) the release packages on GitHub Actions
-├─ .signpath/               copies of the SignPath signing configurations
+├─ .github/workflows/       build.yml: builds the release packages on GitHub Actions
+├─ .signpath/               copies of the SignPath signing configurations (not in use)
 ├─ docs/                    example documents and screenshots
 ├─ LICENSE / THIRD-PARTY-NOTICES.txt
 ├─ README.md / README.zh-CN.md
@@ -156,18 +156,13 @@ The packages published on Releases are built by the Build workflow on GitHub Act
 
 Typography: a clean sans-serif layout with GitHub-style tables and code blocks, 16 px text at 1.75 line height, light and dark themes. The reading sheet widens with the window — 1040 px in a normal window, up to 1360 px (text column up to 1180 px) — so a full-screen window keeps only a small margin on each side.
 
-## Code signing policy
+## Code signing
 
-Still mark has applied to the SignPath Foundation for free code signing of its Windows packages. Once the application is approved, signed releases carry this notice:
+Still mark is not code-signed: `StillMark.exe`, the installer and the uninstaller carry no digital signature. What to do when Windows warns about this is described under [Run it](#run-it).
 
-Free code signing provided by [SignPath.io](https://about.signpath.io), certificate by [SignPath Foundation](https://signpath.org)
+## Privacy
 
-- Signed files are built only by the Build workflow ([.github/workflows/build.yml](.github/workflows/build.yml)) on GitHub-hosted runners, from the source code in this repository. The signed files are `StillMark.exe`, the uninstaller and the installer. The third-party libraries are inside `StillMark.exe` and are not signed separately.
-- Every signing request is approved by hand.
-- Committers and reviewers: [Le inner (wming9728-gif)](https://github.com/wming9728-gif)
-- Approvers: [Le inner (wming9728-gif)](https://github.com/wming9728-gif)
-
-Privacy: Still mark does not send any information to other networked systems unless the user asks for it. When a document refers to images or other media by web address, the preview loads them from that address, as a web browser would. Links in the preview open in the web browser only when you click them. The preview uses the Microsoft Edge WebView2 Runtime that comes with Windows; Microsoft's privacy statement applies to it.
+Still mark does not send any information to other networked systems unless the user asks for it. When a document refers to images or other media by web address, the preview loads them from that address, as a web browser would. Links in the preview open in the web browser only when you click them. The preview uses the Microsoft Edge WebView2 Runtime that comes with Windows; Microsoft's privacy statement applies to it.
 
 ## License
 
