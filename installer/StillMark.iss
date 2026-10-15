@@ -1,5 +1,7 @@
 ﻿; Still mark installer (Inno Setup 6). Build it with tools\build-installer.ps1, which publishes the program into a
 ; staging folder and passes it in as SourceDir together with AppVersion.
+; Signed builds also pass SignedUninstallerDir: the uninstaller is then taken, already signed, from that folder
+; (see tools\build-installer.ps1 and .github\workflows\build.yml).
 ;
 ; - Installs for the current user by default (no administrator rights); "Install for all users" is offered too.
 ; - The installed program keeps settings and drafts in %LOCALAPPDATA%\StillMark (no portable.txt is installed),
@@ -45,6 +47,10 @@ CloseApplications=yes
 RestartApplications=no
 ShowLanguageDialog=auto
 LanguageDetectionMethod=uilanguage
+#ifdef SignedUninstallerDir
+SignedUninstaller=yes
+SignedUninstallerDir={#SignedUninstallerDir}
+#endif
 
 [Languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
@@ -66,6 +72,17 @@ zhcn.WelcomeLabel1=欢迎使用 Still mark 墨 安装向导
 [Tasks]
 Name: "openwith"; Description: "{cm:OpenWithTask}"; GroupDescription: "{cm:OpenWithGroup}"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+
+[InstallDelete]
+; Version 1.0.0 installed the program as many separate files; it is now one StillMark.exe. Remove the old program
+; files an update would otherwise leave behind. (The unused .NET runtime files from 1.0.0 are removed on uninstall.)
+Type: files; Name: "{app}\StillMark.dll"
+Type: files; Name: "{app}\StillMark.Core.dll"
+Type: files; Name: "{app}\StillMark.deps.json"
+Type: files; Name: "{app}\StillMark.runtimeconfig.json"
+Type: files; Name: "{app}\ICSharpCode.AvalonEdit.dll"
+Type: files; Name: "{app}\Markdig.dll"
+Type: filesandordirs; Name: "{app}\zh-Hans"
 
 [Files]
 Source: "{#SourceDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs

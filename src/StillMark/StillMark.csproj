@@ -11,6 +11,8 @@
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Version>1.0.0</Version>
+    <!-- Product version is exactly <Version> (no "+<commit>" suffix): code signing checks it against the release version. -->
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Product>Still mark</Product>
     <!-- Shown as the file description, e.g. in Task Manager. -->
     <AssemblyTitle>Still mark</AssemblyTitle>

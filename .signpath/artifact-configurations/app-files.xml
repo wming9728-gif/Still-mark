@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  SignPath artifact configuration "app-files" (copy of the one stored on signpath.io).
+  Signs the program and the uninstaller; .github/workflows/build.yml uploads them as:
+    portable/StillMark.exe          the portable program (single file)
+    installer/StillMark.exe         the program as installed by the installer (single file)
+    uninstaller/uninst-*.e32        the Inno Setup uninstaller, exported by tools/build-installer.ps1
+  Third-party libraries are inside StillMark.exe and are not signed separately.
+-->
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <parameters>
+    <parameter name="version" required="true" />
+  </parameters>
+  <zip-file>
+    <pe-file path="portable/StillMark.exe" product-name="Still mark" product-version="${version}">
+      <authenticode-sign />
+    </pe-file>
+    <pe-file path="installer/StillMark.exe" product-name="Still mark" product-version="${version}">
+      <authenticode-sign />
+    </pe-file>
+    <pe-file path="uninstaller/uninst-*.e32" product-name="Still mark" product-version="${version}">
+      <authenticode-sign />
+    </pe-file>
+  </zip-file>
+</artifact-configuration>

@@ -1,0 +1,145 @@
+# Builds the portable package and the installer on GitHub-hosted Windows, from the commit it is started on.
+# Start it by hand: Actions -> Build -> Run workflow. The packages are attached to the run as an artifact for testing;
+# publishing a GitHub Release stays a manual step.
+#
+# Code signing (SignPath Foundation, see "Code signing policy" in README.md) is on when the repository variable
+# SIGNPATH_ORGANIZATION_ID is set. It also needs the variables SIGNPATH_PROJECT_SLUG and SIGNPATH_SIGNING_POLICY_SLUG
+# and the secret SIGNPATH_API_TOKEN. A signed run sends two signing requests, each waiting for approval on signpath.io:
+#   1. "app-files": StillMark.exe (portable and installer copies) and the Inno Setup uninstaller
+#   2. "installer": StillMark-<version>-setup.exe, built from the files signed in step 1
+# Copies of both artifact configurations are in .signpath/artifact-configurations.
+name: Build
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  build:
+    runs-on: windows-2025
+    timeout-minutes: 180
+    env:
+      SIGN: ${{ vars.SIGNPATH_ORGANIZATION_ID != '' }}
+      ISCC: C:\InnoSetup6\ISCC.exe
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Install Inno Setup 6.7.3
+        run: |
+          $exe = Join-Path $env:RUNNER_TEMP "innosetup-6.7.3.exe"
+          Invoke-WebRequest https://github.com/jrsoftware/issrc/releases/download/is-6_7_3/innosetup-6.7.3.exe -OutFile $exe
+          $sig = Get-AuthenticodeSignature $exe
+          if ($sig.Status -ne "Valid" -or $sig.SignerCertificate.Subject -notlike "CN=Pyrsys B.V.,*") { throw "unexpected signature on the Inno Setup installer: $($sig.Status) $($sig.SignerCertificate.Subject)" }
+          Start-Process $exe -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/SP-", "/ALLUSERS", "/DIR=C:\InnoSetup6" -Wait
+          if (-not (Test-Path $env:ISCC)) { throw "Inno Setup did not install" }
+
+      - name: Read version
+        id: version
+        run: |
+          $v = ([xml](Get-Content src/StillMark/StillMark.csproj -Raw)).Project.PropertyGroup.Version | Where-Object { $_ } | Select-Object -First 1
+          "value=$v" >> $env:GITHUB_OUTPUT
+
+      - name: Build the portable program
+        run: ./tools/publish.ps1
+
+      - name: Build the installer (unsigned)
+        if: env.SIGN != 'true'
+        run: ./tools/build-installer.ps1 -Iscc $env:ISCC
+
+      - name: Build the installed program and export the uninstaller
+        if: env.SIGN == 'true'
+        run: ./tools/build-installer.ps1 -Iscc $env:ISCC -SignedUninstallerDir dist/installer/uninst -ExportUninstaller
+
+      - name: Collect the files to sign
+        if: env.SIGN == 'true'
+        run: |
+          New-Item -ItemType Directory -Force dist/sign/app/portable, dist/sign/app/installer, dist/sign/app/uninstaller | Out-Null
+          Copy-Item dist/StillMark/StillMark.exe dist/sign/app/portable/
+          Copy-Item dist/installer/stage/StillMark.exe dist/sign/app/installer/
+          Copy-Item dist/installer/uninst/uninst-*.e32 dist/sign/app/uninstaller/
+
+      - name: Upload the files to sign
+        if: env.SIGN == 'true'
+        id: upload-app-files
+        uses: actions/upload-artifact@v7
+        with:
+          name: unsigned-app-files
+          path: dist/sign/app
+          if-no-files-found: error
+
+      - name: Sign the program and the uninstaller
+        if: env.SIGN == 'true'
+        uses: signpath/github-action-submit-signing-request@v3
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ vars.SIGNPATH_SIGNING_POLICY_SLUG }}
+          artifact-configuration-slug: app-files
+          github-artifact-id: ${{ steps.upload-app-files.outputs.artifact-id }}
+          wait-for-completion: true
+          wait-for-completion-timeout-in-seconds: 7200
+          output-artifact-directory: dist/sign/app-signed
+          parameters: |
+            version: ${{ toJSON(steps.version.outputs.value) }}
+
+      - name: Build the installer from the signed files
+        if: env.SIGN == 'true'
+        run: |
+          Copy-Item dist/sign/app-signed/portable/StillMark.exe dist/StillMark/ -Force
+          Copy-Item dist/sign/app-signed/installer/StillMark.exe dist/installer/stage/ -Force
+          Copy-Item dist/sign/app-signed/uninstaller/uninst-*.e32 dist/installer/uninst/ -Force
+          ./tools/build-installer.ps1 -Iscc $env:ISCC -NoPublish -SignedUninstallerDir dist/installer/uninst
+
+      - name: Upload the installer to sign
+        if: env.SIGN == 'true'
+        id: upload-installer
+        uses: actions/upload-artifact@v7
+        with:
+          name: unsigned-installer
+          path: dist/installer/StillMark-${{ steps.version.outputs.value }}-setup.exe
+          if-no-files-found: error
+
+      - name: Sign the installer
+        if: env.SIGN == 'true'
+        uses: signpath/github-action-submit-signing-request@v3
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ vars.SIGNPATH_SIGNING_POLICY_SLUG }}
+          artifact-configuration-slug: installer
+          github-artifact-id: ${{ steps.upload-installer.outputs.artifact-id }}
+          wait-for-completion: true
+          wait-for-completion-timeout-in-seconds: 7200
+          output-artifact-directory: dist/sign/installer-signed
+          parameters: |
+            version: ${{ toJSON(steps.version.outputs.value) }}
+
+      - name: Put the signed installer in place
+        if: env.SIGN == 'true'
+        run: Copy-Item dist/sign/installer-signed/StillMark-${{ steps.version.outputs.value }}-setup.exe dist/installer/ -Force
+
+      - name: Check signatures
+        run: |
+          if ($env:SIGN -eq 'true') { ./tools/check-signatures.ps1 -RequireSigned } else { ./tools/check-signatures.ps1 }
+
+      - name: Package
+        run: ./tools/package-release.ps1
+
+      - name: Upload the release files
+        uses: actions/upload-artifact@v7
+        with:
+          name: StillMark-${{ steps.version.outputs.value }}${{ env.SIGN != 'true' && '-unsigned' || '' }}
+          path: dist/release/
+          if-no-files-found: error

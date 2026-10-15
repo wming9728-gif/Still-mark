@@ -90,8 +90,10 @@ StillMark/
 │  │  └─ Resources/         core messages (CoreStrings.resx English / CoreStrings.zh-Hans.resx Chinese)
 │  └─ StillMark/            WPF desktop app: main window, editor extensions, themes, dialogs, preview page (web/)
 │     └─ Localization/      UI strings (Strings.resx English / Strings.zh-Hans.resx Chinese) and language switching
-├─ tools/                   packaging, icon generation, offline front-end asset download
+├─ tools/                   packaging, signature check, icon generation, offline front-end asset download
 ├─ installer/               installer script (Inno Setup) and the Simplified Chinese setup translation
+├─ .github/workflows/       build.yml: builds (and signs) the release packages on GitHub Actions
+├─ .signpath/               copies of the SignPath signing configurations
 ├─ docs/                    example documents and screenshots
 ├─ LICENSE / THIRD-PARTY-NOTICES.txt
 ├─ README.md / README.zh-CN.md
@@ -131,6 +133,14 @@ powershell -ExecutionPolicy Bypass -File tools/publish.ps1
 powershell -ExecutionPolicy Bypass -File tools/build-installer.ps1
 ```
 
+4. Release files (the installer, `StillMark-<version>-portable.zip` and `SHA256SUMS.txt`, written to `dist\release`), after steps 2 and 3:
+
+```bash
+powershell -ExecutionPolicy Bypass -File tools/package-release.ps1
+```
+
+The packages published on Releases are built by the Build workflow on GitHub Actions ([.github/workflows/build.yml](.github/workflows/build.yml)), which runs the same scripts and is started by hand. `tools/check-signatures.ps1` lists the signature of every program file in the packages.
+
 ## Technology and third-party components
 
 | Component | Used for | License |
@@ -145,6 +155,19 @@ powershell -ExecutionPolicy Bypass -File tools/build-installer.ps1
 | Inno Setup 6 | Builds the installer (the Simplified Chinese setup text is the unofficial translation by Zhenghan Yang (Kira), MIT License) | Inno Setup License |
 
 Typography: a clean sans-serif layout with GitHub-style tables and code blocks, 16 px text at 1.75 line height, light and dark themes. The reading sheet widens with the window — 1040 px in a normal window, up to 1360 px (text column up to 1180 px) — so a full-screen window keeps only a small margin on each side.
+
+## Code signing policy
+
+Still mark has applied to the SignPath Foundation for free code signing of its Windows packages. Once the application is approved, signed releases carry this notice:
+
+Free code signing provided by [SignPath.io](https://about.signpath.io), certificate by [SignPath Foundation](https://signpath.org)
+
+- Signed files are built only by the Build workflow ([.github/workflows/build.yml](.github/workflows/build.yml)) on GitHub-hosted runners, from the source code in this repository. The signed files are `StillMark.exe`, the uninstaller and the installer. The third-party libraries are inside `StillMark.exe` and are not signed separately.
+- Every signing request is approved by hand.
+- Committers and reviewers: [Le inner (wming9728-gif)](https://github.com/wming9728-gif)
+- Approvers: [Le inner (wming9728-gif)](https://github.com/wming9728-gif)
+
+Privacy: Still mark does not send any information to other networked systems unless the user asks for it. When a document refers to images or other media by web address, the preview loads them from that address, as a web browser would. Links in the preview open in the web browser only when you click them. The preview uses the Microsoft Edge WebView2 Runtime that comes with Windows; Microsoft's privacy statement applies to it.
 
 ## License
 
